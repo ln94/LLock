@@ -1,0 +1,15 @@
+//
+//  PrefixHeader.pch
+//  LLock
+//
+//  Created by Lana Shatonova on 2/10/16.
+//  Copyright © 2016 Lana Shatonova. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <RoamToolkit/RoamToolkit.h>
+#import "LFolder+CoreDataClass.h"
+
+#endif /* PrefixHeader_pch */
