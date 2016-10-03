@@ -10,6 +10,6 @@
 
 @interface LPhotoCollectionViewController : UICollectionViewController
 
-@property (nonatomic, strong) LFolder *folder;
+- (instancetype)initWithFolder:(LFolder *)folder;
 
 @end

@@ -7,59 +7,65 @@
 //
 
 #import "LPhotoCollectionViewController.h"
+#import <Photos/Photos.h>
 
-@interface LPhotoCollectionViewController ()
+@interface LPhotoCollectionViewController () <UIImagePickerControllerDelegate>
+
+@property (nonatomic, strong) LFolder *folder;
+
+@property (nonatomic, strong) NSFetchedResultsController *photos;
 
 @end
+
 
 @implementation LPhotoCollectionViewController
 
 static NSString * const reuseIdentifier = @"Cell";
+
+- (instancetype)initWithFolder:(LFolder *)folder {
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    [layout setItemSize:CGSizeMake(50, 50)];
+    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    
+    self = [super initWithCollectionViewLayout:layout];
+    if (!self) return nil;
+    
+    self.folder = folder;
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = C_CLEAR;
     
-    // Navigation bar
-    UIBarButtonItem *addFolderButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAddFolderButton)];
-    addFolderButton.tintColor = C_WHITE;
-    self.navigationItem.leftBarButtonItem = addFolderButton;
+    // Navigation bar: title
+    self.navigationItem.title = self.folder.name;
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    // Navigation bar: back button
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] init];
     
-    // Register cell classes
+    // Navigation bar: add photo button
+    UIBarButtonItem *addPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAddPhotoButton)];
+    addPhotoButton.tintColor = C_WHITE;
+    self.navigationItem.rightBarButtonItem = addPhotoButton;
+    
+    // Collection view
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
-    // Do any additional setup after loading the view.
+    // Frc
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
     return 0;
 }
 
@@ -71,35 +77,59 @@ static NSString * const reuseIdentifier = @"Cell";
     return cell;
 }
 
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+- (void)didPressAddPhotoButton {
+    
+    [self checkPhotoGalleryPermission:^{
+        // Open image picker controller
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.delegate = self;
+        
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
+- (void)checkPhotoGalleryPermission:(void (^)(void))permissionGrantedBlock {
+    
+    // Check permissions
+    switch ([PHPhotoLibrary authorizationStatus])
+    {
+        case PHAuthorizationStatusAuthorized: {
+            if (permissionGrantedBlock) permissionGrantedBlock();
+        }
+            break;
+            
+        case PHAuthorizationStatusDenied:
+        {
+            // Show not authorized message
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Photo Access Denied" message:@"Please grant access to your photos from Settings" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+            break;
+            
+        case PHAuthorizationStatusNotDetermined:
+        {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if (status == PHAuthorizationStatusAuthorized && permissionGrantedBlock) {
+                    permissionGrantedBlock();
+                }
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+    
 }
-*/
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+}
 
 @end
