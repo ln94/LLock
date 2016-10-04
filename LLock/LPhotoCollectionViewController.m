@@ -8,11 +8,11 @@
 
 #import "LPhotoCollectionViewController.h"
 #import <Photos/Photos.h>
+#import "LPhotoGridCollectionViewCell.h"
 
-@interface LPhotoCollectionViewController () <UIImagePickerControllerDelegate>
+@interface LPhotoCollectionViewController () <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) LFolder *folder;
-
 @property (nonatomic, strong) NSFetchedResultsController *photos;
 
 @end
@@ -20,13 +20,13 @@
 
 @implementation LPhotoCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
-
 - (instancetype)initWithFolder:(LFolder *)folder {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setItemSize:CGSizeMake(50, 50)];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    layout.itemSize = size_square([LPhotoGridCollectionViewCell cellWidth]);
+    layout.minimumLineSpacing = 1;
+    layout.minimumInteritemSpacing = 1;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self = [super initWithCollectionViewLayout:layout];
     if (!self) return nil;
@@ -42,10 +42,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.view.backgroundColor = C_CLEAR;
     
     // Navigation bar: title
-    self.navigationItem.title = self.folder.name;
-    
-    // Navigation bar: back button
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] init];
+    self.navigationItem.title = [self.folder.name uppercaseString];
     
     // Navigation bar: add photo button
     UIBarButtonItem *addPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAddPhotoButton)];
@@ -53,9 +50,15 @@ static NSString * const reuseIdentifier = @"Cell";
     self.navigationItem.rightBarButtonItem = addPhotoButton;
     
     // Collection view
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[LPhotoGridCollectionViewCell class] forCellWithReuseIdentifier:[LPhotoGridCollectionViewCell reuseIdentifier]];
+    self.collectionView.contentInset = inset_bottom(20);
     
     // Frc
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LPhoto class] predicate:[NSPredicate predicateWithKey:@"folder" value:self.folder]];
+    request.sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES];
+    self.photos = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:DataContext sectionNameKeyPath:nil cacheName:nil];
+    [self.photos performFetch];
+    self.photos.delegate = self;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -66,16 +69,32 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 0;
+    return self.photos.numberOfObjects;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell
+    LPhotoGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[LPhotoGridCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
+    cell.backgroundColor = C_RANDOM;
+//    LPhoto *photo = [self.photos objectAtIndexPath:indexPath];
+//    UIImage *image = (UIImage *)photo.image;
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initFullInSuperview:cell];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    imageView.clipsToBounds = YES;
+//    imageView.image = image;
+//    
+//    cell.image = image;
     
     return cell;
 }
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.collectionView reloadData];
+}
+
+#pragma mark - Add photo
 
 - (void)didPressAddPhotoButton {
     
@@ -125,11 +144,20 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
-    
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    // Save photo
+    LPhoto *photo = [LPhoto create];
+    photo.folder = self.folder;
+    photo.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+    PHAsset *asset = [fetchResult firstObject];
+    photo.creationDate = asset.creationDate;
+    photo.location = asset.location;
+    
+    [DataStore save];
 }
 
 @end

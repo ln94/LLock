@@ -2,7 +2,7 @@
 //  LFolder+CoreDataProperties.m
 //  LLock
 //
-//  Created by Lana Shatonova on 2/10/16.
+//  Created by Lana Shatonova on 4/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
@@ -15,5 +15,6 @@
 }
 
 @dynamic name;
+@dynamic photos;
 
 @end

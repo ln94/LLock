@@ -2,7 +2,7 @@
 //  LFolder+CoreDataProperties.h
 //  LLock
 //
-//  Created by Lana Shatonova on 2/10/16.
+//  Created by Lana Shatonova on 4/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
@@ -16,6 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<LFolder *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *name;
+@property (nullable, nonatomic, retain) NSSet<LPhoto *> *photos;
+
+@end
+
+@interface LFolder (CoreDataGeneratedAccessors)
+
+- (void)addPhotosObject:(LPhoto *)value;
+- (void)removePhotosObject:(LPhoto *)value;
+- (void)addPhotos:(NSSet<LPhoto *> *)values;
+- (void)removePhotos:(NSSet<LPhoto *> *)values;
 
 @end
 

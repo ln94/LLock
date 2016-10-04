@@ -1,4 +1,5 @@
-dependencies: /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.m \
+dependencies: \
+  /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataProperties.m \
   /Users/lanadeveloper/Playground/LLock/LLock/PrefixHeader.pch \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Modules/module.modulemap \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Headers/NSString+Validation.h \
@@ -49,6 +50,4 @@ dependencies: /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.m \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LFolder+CoreDataClass.h \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LFolder+CoreDataProperties.h \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataClass.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataProperties.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/LFolderTableViewController.h
+  /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataProperties.h

@@ -48,4 +48,6 @@ dependencies: /Users/lanadeveloper/Playground/LLock/LLock/main.m \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Headers/RoamToolkit.h \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LFolder+CoreDataClass.h \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LFolder+CoreDataProperties.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataClass.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhoto+CoreDataProperties.h \
   /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.h

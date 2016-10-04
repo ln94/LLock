@@ -1,13 +1,13 @@
 //
-//  LFolder+CoreDataClass.m
+//  LPhoto+CoreDataClass.m
 //  LLock
 //
 //  Created by Lana Shatonova on 4/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
-#import "LFolder+CoreDataClass.h"
+#import "LPhoto+CoreDataClass.h"
 
-@implementation LFolder
+@implementation LPhoto
 
 @end

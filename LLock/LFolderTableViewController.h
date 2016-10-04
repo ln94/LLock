@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LFolderTableViewController.h
 //  LLock
 //
 //  Created by Lana Shatonova on 2/10/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController
+@interface LFolderTableViewController : UITableViewController
 
 
 @end

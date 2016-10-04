@@ -2,10 +2,17 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="LFolder" representedClassName="LFolder" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LPhoto" inverseName="folder" inverseEntity="LPhoto" syncable="YES"/>
     </entity>
-    <entity name="LPhoto" syncable="YES"/>
+    <entity name="LPhoto" representedClassName="LPhoto" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="folder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LFolder" inverseName="photos" inverseEntity="LFolder" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="LFolder" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="LPhoto" positionX="-54" positionY="0" width="128" height="45"/>
+        <element name="LFolder" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="LPhoto" positionX="-54" positionY="0" width="128" height="120"/>
     </elements>
 </model>

@@ -11,5 +11,6 @@
 
 #import <RoamToolkit/RoamToolkit.h>
 #import "LFolder+CoreDataClass.h"
+#import "LPhoto+CoreDataClass.h"
 
 #endif /* PrefixHeader_pch */

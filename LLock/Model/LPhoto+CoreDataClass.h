@@ -1,5 +1,5 @@
 //
-//  LFolder+CoreDataClass.h
+//  LPhoto+CoreDataClass.h
 //  LLock
 //
 //  Created by Lana Shatonova on 4/10/16.
@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LPhoto;
+@class LFolder, NSObject;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LFolder : NSManagedObject
+@interface LPhoto : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "LFolder+CoreDataProperties.h"
+#import "LPhoto+CoreDataProperties.h"

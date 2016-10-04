@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0EA32BEC83398E293937E389A0D81BA5C6A0210F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0EA32BEC83398E293937E389A0D81BA5C6A0210F" : 9223372036854775807,
+    "C22D9FC7ADF77970A221D7D46E2ADB4E16DA4DAD" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "26F9B964-41A3-44CC-BFED-A60AD4AABCF0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0EA32BEC83398E293937E389A0D81BA5C6A0210F" : "LLock\/",
+    "C22D9FC7ADF77970A221D7D46E2ADB4E16DA4DAD" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "LLock",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LLock.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ln94\/LLock.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0EA32BEC83398E293937E389A0D81BA5C6A0210F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Roamltd\/expenses-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C22D9FC7ADF77970A221D7D46E2ADB4E16DA4DAD"
+    }
+  ]
+}
