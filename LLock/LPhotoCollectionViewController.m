@@ -9,6 +9,7 @@
 #import "LPhotoCollectionViewController.h"
 #import <Photos/Photos.h>
 #import "LPhotoGridCollectionViewCell.h"
+#import "LPhotoManager.h"
 
 @interface LPhotoCollectionViewController () <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -54,7 +55,7 @@
     self.collectionView.contentInset = inset_bottom(20);
     
     // Frc
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LPhoto class] predicate:[NSPredicate predicateWithKey:@"folder" value:self.folder]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LPhotoData class] predicate:[NSPredicate predicateWithKey:@"folder" value:self.folder]];
     request.sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES];
     self.photos = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:DataContext sectionNameKeyPath:nil cacheName:nil];
     [self.photos performFetch];
@@ -74,16 +75,17 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LPhotoGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[LPhotoGridCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
-    cell.backgroundColor = C_RANDOM;
-//    LPhoto *photo = [self.photos objectAtIndexPath:indexPath];
-//    UIImage *image = (UIImage *)photo.image;
-//    
-//    UIImageView *imageView = [[UIImageView alloc] initFullInSuperview:cell];
-//    imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    imageView.clipsToBounds = YES;
-//    imageView.image = image;
-//    
-//    cell.image = image;
+
+    LPhotoData *photo = [self.photos objectAtIndexPath:indexPath];
+//    cell.photoId = photo.photoId;
+    cell.contentView.backgroundColor = C_RANDOM;
+    
+    UIImage *image = (UIImage *)([LPhotoImage firstWithKey:@"photoId" value:photo.photoId].fullImage);
+    
+    UIImageView *imageView = [[UIImageView alloc] initFullInSuperview:cell];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    imageView.image = image;
     
     return cell;
 }
@@ -147,17 +149,9 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
     // Save photo
-    LPhoto *photo = [LPhoto create];
-    photo.folder = self.folder;
-    photo.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [PhotoManager savePhoto:info inFolder:self.folder];
     
-    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
-    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-    PHAsset *asset = [fetchResult firstObject];
-    photo.creationDate = asset.creationDate;
-    photo.location = asset.location;
-    
-    [DataStore save];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  LPhoto+CoreDataClass.h
+//  LPhotoData+CoreDataClass.h
 //  LLock
 //
-//  Created by Lana Shatonova on 4/10/16.
+//  Created by Lana Shatonova on 11/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LPhoto : NSManagedObject
+@interface LPhotoData : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "LPhoto+CoreDataProperties.h"
+#import "LPhotoData+CoreDataProperties.h"

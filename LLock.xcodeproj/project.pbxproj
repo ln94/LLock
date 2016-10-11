@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */; };
+		870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BC1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m */; };
+		870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BE1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m */; };
+		870D66C51DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66C01DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m */; };
+		870D66C61DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66C21DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m */; };
 		87489EF11DA3294500738419 /* LFolder+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EEA1DA3294500738419 /* LFolder+CoreDataClass.m */; };
 		87489EF21DA3294500738419 /* LFolder+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */; };
-		87489EF31DA3294500738419 /* LPhoto+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EEE1DA3294500738419 /* LPhoto+CoreDataClass.m */; };
-		87489EF41DA3294500738419 /* LPhoto+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EF01DA3294500738419 /* LPhoto+CoreDataProperties.m */; };
 		87489EF71DA3628600738419 /* LPhotoGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EF61DA3628600738419 /* LPhotoGridCollectionViewCell.m */; };
 		87A1A7331DA0D08A0080BADE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7321DA0D08A0080BADE /* main.m */; };
 		87A1A7361DA0D08A0080BADE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7351DA0D08A0080BADE /* AppDelegate.m */; };
@@ -25,14 +28,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoManager.h; sourceTree = "<group>"; };
+		870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoManager.m; sourceTree = "<group>"; };
+		870D66BB1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoImage+CoreDataClass.h"; path = "Model/LPhotoImage+CoreDataClass.h"; sourceTree = "<group>"; };
+		870D66BC1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhotoImage+CoreDataClass.m"; path = "Model/LPhotoImage+CoreDataClass.m"; sourceTree = "<group>"; };
+		870D66BD1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoImage+CoreDataProperties.h"; path = "Model/LPhotoImage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		870D66BE1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhotoImage+CoreDataProperties.m"; path = "Model/LPhotoImage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		870D66BF1DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoData+CoreDataClass.h"; path = "Model/LPhotoData+CoreDataClass.h"; sourceTree = "<group>"; };
+		870D66C01DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhotoData+CoreDataClass.m"; path = "Model/LPhotoData+CoreDataClass.m"; sourceTree = "<group>"; };
+		870D66C11DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoData+CoreDataProperties.h"; path = "Model/LPhotoData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		870D66C21DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhotoData+CoreDataProperties.m"; path = "Model/LPhotoData+CoreDataProperties.m"; sourceTree = "<group>"; };
 		87489EE91DA3294500738419 /* LFolder+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LFolder+CoreDataClass.h"; path = "Model/LFolder+CoreDataClass.h"; sourceTree = "<group>"; };
 		87489EEA1DA3294500738419 /* LFolder+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LFolder+CoreDataClass.m"; path = "Model/LFolder+CoreDataClass.m"; sourceTree = "<group>"; };
 		87489EEB1DA3294500738419 /* LFolder+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LFolder+CoreDataProperties.h"; path = "Model/LFolder+CoreDataProperties.h"; sourceTree = "<group>"; };
 		87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LFolder+CoreDataProperties.m"; path = "Model/LFolder+CoreDataProperties.m"; sourceTree = "<group>"; };
-		87489EED1DA3294500738419 /* LPhoto+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhoto+CoreDataClass.h"; path = "Model/LPhoto+CoreDataClass.h"; sourceTree = "<group>"; };
-		87489EEE1DA3294500738419 /* LPhoto+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhoto+CoreDataClass.m"; path = "Model/LPhoto+CoreDataClass.m"; sourceTree = "<group>"; };
-		87489EEF1DA3294500738419 /* LPhoto+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhoto+CoreDataProperties.h"; path = "Model/LPhoto+CoreDataProperties.h"; sourceTree = "<group>"; };
-		87489EF01DA3294500738419 /* LPhoto+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LPhoto+CoreDataProperties.m"; path = "Model/LPhoto+CoreDataProperties.m"; sourceTree = "<group>"; };
 		87489EF51DA3628600738419 /* LPhotoGridCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoGridCollectionViewCell.h; sourceTree = "<group>"; };
 		87489EF61DA3628600738419 /* LPhotoGridCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoGridCollectionViewCell.m; sourceTree = "<group>"; };
 		87A1A72E1DA0D08A0080BADE /* LLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +98,8 @@
 				87A1A7551DA0D3B00080BADE /* Model */,
 				87A1A7341DA0D08A0080BADE /* AppDelegate.h */,
 				87A1A7351DA0D08A0080BADE /* AppDelegate.m */,
+				870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */,
+				870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */,
 				87A1A7371DA0D08A0080BADE /* LFolderTableViewController.h */,
 				87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */,
 				87A1A7591DA1F5460080BADE /* LFolderTableViewCell.h */,
@@ -118,15 +129,19 @@
 		87A1A7551DA0D3B00080BADE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				87A1A73D1DA0D08A0080BADE /* LLock.xcdatamodeld */,
+				870D66BB1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.h */,
+				870D66BC1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m */,
+				870D66BD1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.h */,
+				870D66BE1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m */,
+				870D66BF1DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.h */,
+				870D66C01DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m */,
+				870D66C11DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.h */,
+				870D66C21DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m */,
 				87489EE91DA3294500738419 /* LFolder+CoreDataClass.h */,
 				87489EEA1DA3294500738419 /* LFolder+CoreDataClass.m */,
 				87489EEB1DA3294500738419 /* LFolder+CoreDataProperties.h */,
 				87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */,
-				87489EED1DA3294500738419 /* LPhoto+CoreDataClass.h */,
-				87489EEE1DA3294500738419 /* LPhoto+CoreDataClass.m */,
-				87489EEF1DA3294500738419 /* LPhoto+CoreDataProperties.h */,
-				87489EF01DA3294500738419 /* LPhoto+CoreDataProperties.m */,
-				87A1A73D1DA0D08A0080BADE /* LLock.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -205,15 +220,18 @@
 			files = (
 				87489EF71DA3628600738419 /* LPhotoGridCollectionViewCell.m in Sources */,
 				87A1A75E1DA1FE060080BADE /* LPhotoCollectionViewController.m in Sources */,
+				870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */,
+				870D66C61DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m in Sources */,
 				87A1A7391DA0D08A0080BADE /* LFolderTableViewController.m in Sources */,
 				87489EF21DA3294500738419 /* LFolder+CoreDataProperties.m in Sources */,
+				870D66C51DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m in Sources */,
 				87489EF11DA3294500738419 /* LFolder+CoreDataClass.m in Sources */,
 				87A1A7361DA0D08A0080BADE /* AppDelegate.m in Sources */,
-				87489EF31DA3294500738419 /* LPhoto+CoreDataClass.m in Sources */,
 				87A1A75B1DA1F5460080BADE /* LFolderTableViewCell.m in Sources */,
+				870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */,
 				87A1A7331DA0D08A0080BADE /* main.m in Sources */,
 				87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */,
-				87489EF41DA3294500738419 /* LPhoto+CoreDataProperties.m in Sources */,
+				870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@
 
 @interface LPhotoGridCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic) NSNumber *photoId;
 
 + (NSString *)reuseIdentifier;
 + (CGFloat)cellWidth;

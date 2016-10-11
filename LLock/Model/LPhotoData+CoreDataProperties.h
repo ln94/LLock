@@ -1,22 +1,22 @@
 //
-//  LPhoto+CoreDataProperties.h
+//  LPhotoData+CoreDataProperties.h
 //  LLock
 //
-//  Created by Lana Shatonova on 4/10/16.
+//  Created by Lana Shatonova on 11/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
-#import "LPhoto+CoreDataClass.h"
+#import "LPhotoData+CoreDataClass.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LPhoto (CoreDataProperties)
+@interface LPhotoData (CoreDataProperties)
 
-+ (NSFetchRequest<LPhoto *> *)fetchRequest;
++ (NSFetchRequest<LPhotoData *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSDate *creationDate;
-@property (nullable, nonatomic, retain) NSObject *image;
+@property (nullable, nonatomic, copy) NSNumber *photoId;
 @property (nullable, nonatomic, retain) NSObject *location;
 @property (nullable, nonatomic, retain) LFolder *folder;
 

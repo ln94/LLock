@@ -10,10 +10,11 @@
 
 static NSString *const reuseIdentifier = @"photoGridCell";
 
-static const CGFloat kCellWidth = 93;
+static const CGFloat kCellWidth = 92;
 
 @interface LPhotoGridCollectionViewCell()
 
+@property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
@@ -25,11 +26,14 @@ static const CGFloat kCellWidth = 93;
     self = [super initWithSize:size];
     if (!self) return nil;
     
-    UIImageView *imageView = [[UIImageView alloc] initFullInSuperview:self];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
+    self.contentView.backgroundColor = C_DARK_GRAY;
     
-    LOG(@"Cell Init");
+    self.loadingIndicator = [[UIActivityIndicatorView alloc] initFullInSuperview:self.contentView];
+    self.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    self.imageView = [[UIImageView alloc] initFullInSuperview:self.contentView];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
     
     return self;
 }
@@ -46,10 +50,18 @@ static const CGFloat kCellWidth = 93;
 
 #pragma mark - Setters
 
-- (void)setImage:(UIImage *)image {
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.clipsToBounds = YES;
-    self.imageView.image = image;
+- (void)setPhotoId:(NSNumber *)photoId {
+    
+    self.imageView.image = nil;
+    [self.loadingIndicator startAnimating];
+    
+    run_background(^{
+        LPhotoImage *image = [LPhotoImage firstWithKey:@"photoId" value:photoId];
+        run_main(^{
+            self.imageView.image = (UIImage *)image.fullImage;
+            [self.loadingIndicator stopAnimating];
+        });
+    });
 }
 
 @end

@@ -28,9 +28,23 @@
     self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
     
+//    [self clearDB];
+    
     return YES;
 }
 
+- (void)clearDB {
+    
+    for (LPhotoData *photo in [LPhotoData all]) {
+        [photo destroy];
+    }
+    
+    for (LPhotoImage *photo in [LPhotoImage all]) {
+        [photo destroy];
+    }
+    
+    [DataStore save];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
