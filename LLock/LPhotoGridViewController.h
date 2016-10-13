@@ -1,5 +1,5 @@
 //
-//  LPhotoCollectionViewController.h
+//  LPhotoGridViewController.h
 //  LLock
 //
 //  Created by Lana Shatonova on 3/10/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPhotoCollectionViewController : UICollectionViewController
+@interface LPhotoGridViewController : UICollectionViewController
 
 - (instancetype)initWithFolder:(LFolder *)folder;
 

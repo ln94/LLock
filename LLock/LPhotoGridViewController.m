@@ -1,17 +1,18 @@
 //
-//  LPhotoCollectionViewController.m
+//  LPhotoGridViewController.m
 //  LLock
 //
 //  Created by Lana Shatonova on 3/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
-#import "LPhotoCollectionViewController.h"
+#import "LPhotoGridViewController.h"
 #import <Photos/Photos.h>
-#import "LPhotoGridCollectionViewCell.h"
+#import "LPhotoGridViewCell.h"
 #import "LPhotoManager.h"
+#import "LPhotoDetailViewController.h"
 
-@interface LPhotoCollectionViewController () <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface LPhotoGridViewController () <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) LFolder *folder;
 @property (nonatomic, strong) NSFetchedResultsController *photos;
@@ -19,12 +20,12 @@
 @end
 
 
-@implementation LPhotoCollectionViewController
+@implementation LPhotoGridViewController
 
 - (instancetype)initWithFolder:(LFolder *)folder {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = size_square([LPhotoGridCollectionViewCell cellWidth]);
+    layout.itemSize = size_square([LPhotoGridViewCell cellWidth]);
     layout.minimumLineSpacing = 1;
     layout.minimumInteritemSpacing = 1;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -44,6 +45,7 @@
     
     // Navigation bar: title
     self.navigationItem.title = [self.folder.name uppercaseString];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // Navigation bar: add photo button
     UIBarButtonItem *addPhotoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAddPhotoButton)];
@@ -51,8 +53,9 @@
     self.navigationItem.rightBarButtonItem = addPhotoButton;
     
     // Collection view
-    [self.collectionView registerClass:[LPhotoGridCollectionViewCell class] forCellWithReuseIdentifier:[LPhotoGridCollectionViewCell reuseIdentifier]];
-    self.collectionView.contentInset = inset_bottom(20);
+    [self.collectionView registerClass:[LPhotoGridViewCell class] forCellWithReuseIdentifier:[LPhotoGridViewCell reuseIdentifier]];
+    self.collectionView.contentInset = i(1, 0, 20, 0);
+    self.collectionView.alwaysBounceVertical = YES;
     
     // Frc
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LPhotoData class] predicate:[NSPredicate predicateWithKey:@"folder" value:self.folder]];
@@ -62,39 +65,42 @@
     self.photos.delegate = self;
 }
 
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.photos.numberOfObjects;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    LPhotoGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[LPhotoGridCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
+    LPhotoGridViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[LPhotoGridViewCell reuseIdentifier] forIndexPath:indexPath];
 
     LPhotoData *photo = [self.photos objectAtIndexPath:indexPath];
-//    cell.photoId = photo.photoId;
-    cell.contentView.backgroundColor = C_RANDOM;
-    
-    UIImage *image = (UIImage *)([LPhotoImage firstWithKey:@"photoId" value:photo.photoId].fullImage);
-    
-    UIImageView *imageView = [[UIImageView alloc] initFullInSuperview:cell];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
-    imageView.image = image;
+    cell.photoId = photo.photoId;
     
     return cell;
 }
+
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    // Open photo detail view controller
+    LPhotoDetailViewController *photoVC = [[LPhotoDetailViewController alloc] initWithSize:self.view.size fetchedResultsController:self.photos andSelectedIndexPath:indexPath];
+    [self.navigationController pushViewController:photoVC animated:YES];
+}
+
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.collectionView reloadData];
 }
+
 
 #pragma mark - Add photo
 

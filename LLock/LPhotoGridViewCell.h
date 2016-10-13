@@ -1,5 +1,5 @@
 //
-//  LPhotoGridCollectionViewCell.h
+//  LPhotoGridViewCell.h
 //  LLock
 //
 //  Created by Lana Shatonova on 4/10/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPhotoGridCollectionViewCell : UICollectionViewCell
+@interface LPhotoGridViewCell : UICollectionViewCell
 
 @property (nonatomic) NSNumber *photoId;
 

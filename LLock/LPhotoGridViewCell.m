@@ -1,35 +1,34 @@
 //
-//  LPhotoGridCollectionViewCell.m
+//  LPhotoGridViewCell.m
 //  LLock
 //
 //  Created by Lana Shatonova on 4/10/16.
 //  Copyright © 2016 Lana Shatonova. All rights reserved.
 //
 
-#import "LPhotoGridCollectionViewCell.h"
+#import "LPhotoGridViewCell.h"
 
 static NSString *const reuseIdentifier = @"photoGridCell";
 
-static const CGFloat kCellWidth = 92;
+static const CGFloat kCellWidth = 93;
 
-@interface LPhotoGridCollectionViewCell()
+@interface LPhotoGridViewCell()
 
 @property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
-@implementation LPhotoGridCollectionViewCell
+@implementation LPhotoGridViewCell
 
-- (instancetype)initWithSize:(CGSize)size {
-    
-    self = [super initWithSize:size];
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (!self) return nil;
     
-    self.contentView.backgroundColor = C_DARK_GRAY;
+    self.contentView.backgroundColor = C_GRAY(0.1);
     
     self.loadingIndicator = [[UIActivityIndicatorView alloc] initFullInSuperview:self.contentView];
-    self.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
     
     self.imageView = [[UIImageView alloc] initFullInSuperview:self.contentView];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -40,7 +39,7 @@ static const CGFloat kCellWidth = 92;
 
 #pragma mark - Getters
 
-+(NSString *)reuseIdentifier {
++ (NSString *)reuseIdentifier {
     return reuseIdentifier;
 }
 

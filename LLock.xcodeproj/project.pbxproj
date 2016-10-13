@@ -14,7 +14,7 @@
 		870D66C61DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66C21DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m */; };
 		87489EF11DA3294500738419 /* LFolder+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EEA1DA3294500738419 /* LFolder+CoreDataClass.m */; };
 		87489EF21DA3294500738419 /* LFolder+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */; };
-		87489EF71DA3628600738419 /* LPhotoGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EF61DA3628600738419 /* LPhotoGridCollectionViewCell.m */; };
+		87489EF71DA3628600738419 /* LPhotoGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87489EF61DA3628600738419 /* LPhotoGridViewCell.m */; };
 		87A1A7331DA0D08A0080BADE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7321DA0D08A0080BADE /* main.m */; };
 		87A1A7361DA0D08A0080BADE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7351DA0D08A0080BADE /* AppDelegate.m */; };
 		87A1A7391DA0D08A0080BADE /* LFolderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */; };
@@ -24,7 +24,9 @@
 		87A1A7441DA0D08A0080BADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */; };
 		87A1A7581DA0D4DC0080BADE /* RoamToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A1A7571DA0D4DC0080BADE /* RoamToolkit.framework */; };
 		87A1A75B1DA1F5460080BADE /* LFolderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A75A1DA1F5460080BADE /* LFolderTableViewCell.m */; };
-		87A1A75E1DA1FE060080BADE /* LPhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A75D1DA1FE060080BADE /* LPhotoCollectionViewController.m */; };
+		87A1A75E1DA1FE060080BADE /* LPhotoGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */; };
+		87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */; };
+		87CCA9BB1DAF327E000A1A01 /* LPhotoDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +44,8 @@
 		87489EEA1DA3294500738419 /* LFolder+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LFolder+CoreDataClass.m"; path = "Model/LFolder+CoreDataClass.m"; sourceTree = "<group>"; };
 		87489EEB1DA3294500738419 /* LFolder+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LFolder+CoreDataProperties.h"; path = "Model/LFolder+CoreDataProperties.h"; sourceTree = "<group>"; };
 		87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LFolder+CoreDataProperties.m"; path = "Model/LFolder+CoreDataProperties.m"; sourceTree = "<group>"; };
-		87489EF51DA3628600738419 /* LPhotoGridCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoGridCollectionViewCell.h; sourceTree = "<group>"; };
-		87489EF61DA3628600738419 /* LPhotoGridCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoGridCollectionViewCell.m; sourceTree = "<group>"; };
+		87489EF51DA3628600738419 /* LPhotoGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoGridViewCell.h; sourceTree = "<group>"; };
+		87489EF61DA3628600738419 /* LPhotoGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoGridViewCell.m; sourceTree = "<group>"; };
 		87A1A72E1DA0D08A0080BADE /* LLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A1A7321DA0D08A0080BADE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		87A1A7341DA0D08A0080BADE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,8 +61,12 @@
 		87A1A7571DA0D4DC0080BADE /* RoamToolkit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RoamToolkit.framework; sourceTree = "<group>"; };
 		87A1A7591DA1F5460080BADE /* LFolderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFolderTableViewCell.h; sourceTree = "<group>"; };
 		87A1A75A1DA1F5460080BADE /* LFolderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFolderTableViewCell.m; sourceTree = "<group>"; };
-		87A1A75C1DA1FE060080BADE /* LPhotoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoCollectionViewController.h; sourceTree = "<group>"; };
-		87A1A75D1DA1FE060080BADE /* LPhotoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoCollectionViewController.m; sourceTree = "<group>"; };
+		87A1A75C1DA1FE060080BADE /* LPhotoGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoGridViewController.h; sourceTree = "<group>"; };
+		87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoGridViewController.m; sourceTree = "<group>"; };
+		87CCA9B61DAF3133000A1A01 /* LPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoDetailViewController.h; sourceTree = "<group>"; };
+		87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewController.m; sourceTree = "<group>"; };
+		87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoDetailViewCell.h; sourceTree = "<group>"; };
+		87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +110,14 @@
 				87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */,
 				87A1A7591DA1F5460080BADE /* LFolderTableViewCell.h */,
 				87A1A75A1DA1F5460080BADE /* LFolderTableViewCell.m */,
-				87A1A75C1DA1FE060080BADE /* LPhotoCollectionViewController.h */,
-				87A1A75D1DA1FE060080BADE /* LPhotoCollectionViewController.m */,
-				87489EF51DA3628600738419 /* LPhotoGridCollectionViewCell.h */,
-				87489EF61DA3628600738419 /* LPhotoGridCollectionViewCell.m */,
+				87A1A75C1DA1FE060080BADE /* LPhotoGridViewController.h */,
+				87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */,
+				87489EF51DA3628600738419 /* LPhotoGridViewCell.h */,
+				87489EF61DA3628600738419 /* LPhotoGridViewCell.m */,
+				87CCA9B61DAF3133000A1A01 /* LPhotoDetailViewController.h */,
+				87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */,
+				87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */,
+				87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */,
 				87A1A7561DA0D4340080BADE /* PrefixHeader.pch */,
 				87A1A73A1DA0D08A0080BADE /* Main.storyboard */,
 				87A1A7401DA0D08A0080BADE /* Assets.xcassets */,
@@ -218,11 +228,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87489EF71DA3628600738419 /* LPhotoGridCollectionViewCell.m in Sources */,
-				87A1A75E1DA1FE060080BADE /* LPhotoCollectionViewController.m in Sources */,
+				87489EF71DA3628600738419 /* LPhotoGridViewCell.m in Sources */,
+				87A1A75E1DA1FE060080BADE /* LPhotoGridViewController.m in Sources */,
 				870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */,
 				870D66C61DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m in Sources */,
 				87A1A7391DA0D08A0080BADE /* LFolderTableViewController.m in Sources */,
+				87CCA9BB1DAF327E000A1A01 /* LPhotoDetailViewCell.m in Sources */,
 				87489EF21DA3294500738419 /* LFolder+CoreDataProperties.m in Sources */,
 				870D66C51DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m in Sources */,
 				87489EF11DA3294500738419 /* LFolder+CoreDataClass.m in Sources */,
@@ -231,6 +242,7 @@
 				870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */,
 				87A1A7331DA0D08A0080BADE /* main.m in Sources */,
 				87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */,
+				87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */,
 				870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

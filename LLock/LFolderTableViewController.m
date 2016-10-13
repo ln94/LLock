@@ -8,12 +8,15 @@
 
 #import "LFolderTableViewController.h"
 #import "LFolderTableViewCell.h"
-#import "LPhotoCollectionViewController.h"
+#import "LPhotoGridViewController.h"
 
-@interface LFolderTableViewController () <UITextFieldDelegate, NSFetchedResultsControllerDelegate>
+@interface LFolderTableViewController () <UITextFieldDelegate, NSFetchedResultsControllerDelegate, LFolderTableViewCellDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *folders;
 @property (nonatomic, strong) UIAlertController *addFolderAlertController;
+@property (nonatomic, strong) UIAlertController *deleteFolderAlertController;
+
+@property (nonatomic, strong) LFolderTableViewCell *cellWithDeleteButtonShown;
 
 @end
 
@@ -25,7 +28,7 @@
     self.view.backgroundColor = C_CLEAR;
     
     // Navigation bar
-    self.navigationItem.title = [@"Folders" uppercaseString];
+//    self.navigationItem.title = [@"Folders" uppercaseString];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // Navigation bar: add photo button
@@ -43,20 +46,27 @@
     }];
     self.addFolderAlertController.textFields[0].delegate = self;
     
-    [self.addFolderAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self.addFolderAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self resetAddFolderAlertController];
+    }]];
     UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        // Save the folder
-        LFolder *newFolder = [LFolder createInContext:DataContext];
-        newFolder.name = self.addFolderAlertController.textFields[0].text;
-        [DataStore save];
-        
-        // Empty the textfield
-        self.addFolderAlertController.textFields[0].text = nil;
-        action.enabled = NO;
+        [self addFolder];
     }];
     saveAction.enabled = NO;
     [self.addFolderAlertController addAction:saveAction];
+    
+    // Delete folder alert controller
+    self.deleteFolderAlertController = [UIAlertController alertControllerWithTitle:@"Delete Folder" message:@"Are you sure you want to delete this folder and all the photos in it?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.deleteFolderAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        // Hide delete button
+        [self hideDeleteFolderButton];
+        
+    }]];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteFolder];
+    }];
+    [self.deleteFolderAlertController addAction:deleteAction];
     
     // Table view
     self.tableView.backgroundColor = C_CLEAR;
@@ -73,6 +83,55 @@
     self.folders.delegate = self;
 }
 
+#pragma mark - Actions
+
+- (void)didPressAddFolderButton {
+    // Show add folder alert controller
+    [self presentViewController:self.addFolderAlertController animated:YES completion:nil];
+}
+
+- (void)hideDeleteFolderButton {
+    
+    if (self.cellWithDeleteButtonShown) {
+        self.cellWithDeleteButtonShown.showDeleteButton = NO;
+        self.cellWithDeleteButtonShown = nil;
+    }
+}
+
+- (void)addFolder {
+    
+    NSString *folderName = self.addFolderAlertController.textFields[0].text;
+    
+    if (![LFolder firstWithKey:@"name" value:folderName]) {
+        
+        // Save the folder
+        LFolder *newFolder = [LFolder createInContext:DataContext];
+        newFolder.name = folderName;
+        [DataStore save];
+        
+        [self resetAddFolderAlertController];
+    }
+    else {
+        self.addFolderAlertController.message = @"Folder with this name already exists! Enter another name.";
+        self.addFolderAlertController.actions[1].enabled = NO;
+        [self presentViewController:self.addFolderAlertController animated:YES completion:nil];
+    }
+}
+
+- (void)resetAddFolderAlertController {
+    
+    self.addFolderAlertController.message = @"Enter a name for this folder.";
+    self.addFolderAlertController.textFields[0].text = nil;
+    self.addFolderAlertController.actions[1].enabled = NO;
+}
+
+- (void)deleteFolder {
+    
+    LFolder *folder = [LFolder firstWithKey:@"name" value:self.cellWithDeleteButtonShown.folderName];
+    [self hideDeleteFolderButton];
+    [folder destroy];
+    [DataStore save];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -83,6 +142,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     LFolderTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[LFolderTableViewCell reuseIdentifier]];
+    cell.delegate = self;
     
     LFolder *folder = [self.folders objectAtIndexPath:indexPath];
     cell.folderName = folder.name;
@@ -94,22 +154,48 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Hide delete button
+    [self hideDeleteFolderButton];
     
-    LPhotoCollectionViewController *photoVC = [[LPhotoCollectionViewController alloc] initWithFolder:[self.folders objectAtIndexPath:indexPath]];
+    // Open photo grid view controller
+    LPhotoGridViewController *photoVC = [[LPhotoGridViewController alloc] initWithFolder:[self.folders objectAtIndexPath:indexPath]];
     [self.navigationController pushViewController:photoVC animated:YES];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView reloadData];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.tableView reloadData];
+    }];
 }
 
-#pragma mark - Actions
+#pragma mark - UIScrollViewDelegate
 
-- (void)didPressAddFolderButton {
-    // Show alert controller
-    [self presentViewController:self.addFolderAlertController animated:YES completion:nil];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Hide delete button
+    [self hideDeleteFolderButton];
+}
+
+#pragma mark - LFolderTableViewCellDelegate
+
+- (void)LFolderTableViewCell:(LFolderTableViewCell *)cell didSetShowDeleteButton:(BOOL)showing {
+    
+    if (showing) {
+        // Hide previously shown Delete button
+        [self hideDeleteFolderButton];
+        
+        self.cellWithDeleteButtonShown = cell;
+    }
+    else {
+        self.cellWithDeleteButtonShown = nil;
+    }
+}
+
+- (void)LFolderTableViewCell:(LFolderTableViewCell *)cell didPressDeleteButton:(UIButton *)button {
+    // Show delete folder alert controller
+    [self presentViewController:self.deleteFolderAlertController animated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
