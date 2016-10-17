@@ -9,10 +9,15 @@
 #import "LPhotoDetailViewController.h"
 #import "LPhotoDetailViewCell.h"
 
+static const CGFloat spacing = 15;
+
 @interface LPhotoDetailViewController ()
 
 @property (nonatomic, strong) NSFetchedResultsController *photos;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
+
+@property (nonatomic) UILabel *dateLabel;
+@property (nonatomic) UILabel *timeLabel;
 
 @end
 
@@ -22,8 +27,8 @@
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = size;
-    layout.minimumLineSpacing = 0;
-    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = spacing;
+    layout.minimumInteritemSpacing = spacing;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     self = [super initWithCollectionViewLayout:layout];
@@ -40,15 +45,48 @@
     
     self.view.backgroundColor = C_CLEAR;
     
+    
     // Navigation bar: title
-    self.navigationItem.title = string(@"%ld of %ld", self.selectedIndexPath.row + 1, self.photos.numberOfObjects);
+    UIView *titleView = [[UIView alloc] initWithSize:self.navigationController.navigationBar.size];
+    
+    self.dateLabel = [[UILabel alloc] initInSuperview:titleView edge:UIViewEdgeTop length:20 insets:i(3, 0, 0, -44)];
+    self.dateLabel.textColor = C_WHITE;
+    self.dateLabel.font = [UIFont systemFontOfSize:14];
+    self.dateLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.timeLabel = [[UILabel alloc] initInSuperview:titleView edge:UIViewEdgeTop length:15 insets:i(0, 0, 0, -44)];
+    self.timeLabel.top = self.dateLabel.bottom;
+    self.timeLabel.textColor = C_WHITE;
+    self.timeLabel.font = [UIFont systemFontOfSize:12];
+    self.timeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.navigationItem.titleView = titleView;
+    
+    LPhotoData *photoInfo = [self.photos objectAtIndexPath:self.selectedIndexPath];
+    [self updateTitleWithDate:photoInfo.creationDate];
     
     // Register cell classes
     [self.collectionView registerClass:[LPhotoDetailViewCell class] forCellWithReuseIdentifier:[LPhotoDetailViewCell reuseIdentifier]];
     self.collectionView.alwaysBounceHorizontal = YES;
-    self.collectionView.decelerationRate = -1;
     
     [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+}
+
+- (void)updateTitleWithDate:(NSDate *)date {
+    
+    // Set date
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    if ([NSDate date].year == date.year) {
+        [dateFormatter setDateFormat:@"d MMMM, EEEE"];
+    }
+    else {
+        [dateFormatter setDateFormat:@"d MMMM yyyy, EEEE"];
+    }
+    self.dateLabel.text = [dateFormatter stringFromDate:date];
+    
+    //Set time
+    [dateFormatter setDateFormat:@"h:mm a"];
+    self.timeLabel.text = [dateFormatter stringFromDate:date];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -73,48 +111,30 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
-    if (scrollView.isDragging) {
-        LOG(@"Dragging");
+    // Correct scrolling
+    CGFloat pageWidth = scrollView.width + spacing;
+    
+    CGFloat currentOffset = scrollView.contentOffset.x;
+    CGFloat targetOffset = targetContentOffset->x;
+    
+    CGFloat newTargetOffset = targetOffset > currentOffset ? ceilf(currentOffset / pageWidth) * pageWidth : floorf(currentOffset / pageWidth) * pageWidth;
+    
+    if (newTargetOffset < 0) {
+        newTargetOffset = 0;
     }
-    else {
-        [self normilizeScrollView:scrollView];
-    }
-}
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
-    if (!decelerate) {
-        [self normilizeScrollView:scrollView];
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    
-    scrollView.decelerationRate = 0;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-    [self normilizeScrollView:scrollView];
-}
-
-- (void)normilizeScrollView:(UIScrollView *)scrollView {
-    
-    int index = (int)scrollView.contentOffset.x / (int)scrollView.width;
-    int absoluteOffsetX = (int)scrollView.contentOffset.x % (int)scrollView.width;
-    LOG(@"%i", absoluteOffsetX);
-    
-    if (absoluteOffsetX < 100) {
-        // Stay on the same potato
-    }
-    else {
-        index++;
+    else if (newTargetOffset > scrollView.contentSize.width) {
+        newTargetOffset = scrollView.contentSize.width;
     }
     
-    [UIView animateWithDuration:0.1 animations:^{
-        scrollView.contentOffset = p(index * scrollView.width, scrollView.contentOffset.y);
-    }];
+    targetContentOffset->x = currentOffset;
+    [scrollView setContentOffset:p(newTargetOffset, scrollView.contentOffset.y) animated:YES];
+    
+    // Title updating
+    NSInteger index = newTargetOffset / pageWidth;
+    LPhotoData *photoInfo = [self.photos objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self updateTitleWithDate:photoInfo.creationDate];
 }
 
 @end

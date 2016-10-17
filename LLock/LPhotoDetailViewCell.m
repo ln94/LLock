@@ -10,9 +10,12 @@
 
 static NSString *const reuseIdentifier = @"photoDetailCell";
 
+static const CGFloat maxScale = 5;
+
 @interface LPhotoDetailViewCell()
 
 @property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
+
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
@@ -33,19 +36,17 @@ static NSString *const reuseIdentifier = @"photoDetailCell";
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.clipsToBounds = YES;
     
-    // Swipe gestures
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self addGestureRecognizer:swipeLeft];
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [self addGestureRecognizer:swipeRight];
+//    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+//    [self addGestureRecognizer:pinch];
     
     return self;
 }
 
 #pragma mark - Getters
+
+- (UIImageView *)viewForZooming {
+    return self.imageView;
+}
 
 + (NSString *)reuseIdentifier {
     return reuseIdentifier;
@@ -55,6 +56,7 @@ static NSString *const reuseIdentifier = @"photoDetailCell";
 
 - (void)setPhotoId:(NSNumber *)photoId {
     
+    // Load photo image
     self.imageView.image = nil;
     [self.loadingIndicator startAnimating];
     
@@ -67,14 +69,22 @@ static NSString *const reuseIdentifier = @"photoDetailCell";
     });
 }
 
-#pragma mark - Swipes 
+#pragma mark - GestureRecognizer
 
-- (void)swipeLeft {
-    [self.delegate LPhotoDetailViewCell:self didSwipe:UISwipeGestureRecognizerDirectionLeft];
-}
-
-- (void)swipeRight {
-    [self.delegate LPhotoDetailViewCell:self didSwipe:UISwipeGestureRecognizerDirectionRight];
+- (void)pinch:(UIPinchGestureRecognizer *)gesture {
+    
+    CGFloat scale = gesture.scale - 1;
+    while (scale >= 1) {
+        scale -= 1;
+    }
+    LOG(@"PINCH %.2f %.2f", scale, gesture.velocity);
+    
+    if (scale < 0 && self.imageView.scale + scale >= 1) {
+        self.imageView.scale += scale;
+    }
+    else if (scale > 0 && self.imageView.scale + scale <= maxScale) {
+        self.imageView.scale += scale;
+    }
 }
 
 @end

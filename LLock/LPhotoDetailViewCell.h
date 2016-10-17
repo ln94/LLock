@@ -8,20 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol LPhotoDetailViewCellDelegate;
-
 @interface LPhotoDetailViewCell : UICollectionViewCell
 
 @property (nonatomic) NSNumber *photoId;
 
-@property (nonatomic) id<LPhotoDetailViewCellDelegate> delegate;
+- (UIImageView *)viewForZooming;
 
 + (NSString *)reuseIdentifier;
-
-@end
-
-@protocol LPhotoDetailViewCellDelegate <NSObject>
-
-- (void)LPhotoDetailViewCell:(LPhotoDetailViewCell *)cell didSwipe:(UISwipeGestureRecognizerDirection)direction;
 
 @end
