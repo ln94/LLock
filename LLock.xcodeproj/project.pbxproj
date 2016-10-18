@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870B3E0B1DB5CCD300954CB3 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870B3E0A1DB5CCD300954CB3 /* LocalAuthentication.framework */; };
+		870B3E111DB5D83C00954CB3 /* settings-icon.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 870B3E101DB5D83C00954CB3 /* settings-icon.PNG */; };
+		870B3E1A1DB5DA4100954CB3 /* LSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */; };
 		870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */; };
 		870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BC1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m */; };
 		870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BE1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m */; };
@@ -18,7 +21,6 @@
 		87A1A7331DA0D08A0080BADE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7321DA0D08A0080BADE /* main.m */; };
 		87A1A7361DA0D08A0080BADE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7351DA0D08A0080BADE /* AppDelegate.m */; };
 		87A1A7391DA0D08A0080BADE /* LFolderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */; };
-		87A1A73C1DA0D08A0080BADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A1A73A1DA0D08A0080BADE /* Main.storyboard */; };
 		87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A73D1DA0D08A0080BADE /* LLock.xcdatamodeld */; };
 		87A1A7411DA0D08A0080BADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87A1A7401DA0D08A0080BADE /* Assets.xcassets */; };
 		87A1A7441DA0D08A0080BADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */; };
@@ -30,6 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		870B3E0A1DB5CCD300954CB3 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		870B3E101DB5D83C00954CB3 /* settings-icon.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-icon.PNG"; sourceTree = "<group>"; };
+		870B3E181DB5DA4100954CB3 /* LSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsViewController.h; sourceTree = "<group>"; };
+		870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSettingsViewController.m; sourceTree = "<group>"; };
 		870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoManager.h; sourceTree = "<group>"; };
 		870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoManager.m; sourceTree = "<group>"; };
 		870D66BB1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoImage+CoreDataClass.h"; path = "Model/LPhotoImage+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -52,7 +58,6 @@
 		87A1A7351DA0D08A0080BADE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		87A1A7371DA0D08A0080BADE /* LFolderTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFolderTableViewController.h; sourceTree = "<group>"; };
 		87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFolderTableViewController.m; sourceTree = "<group>"; };
-		87A1A73B1DA0D08A0080BADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		87A1A73E1DA0D08A0080BADE /* LLock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LLock.xcdatamodel; sourceTree = "<group>"; };
 		87A1A7401DA0D08A0080BADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87A1A7431DA0D08A0080BADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				870B3E0B1DB5CCD300954CB3 /* LocalAuthentication.framework in Frameworks */,
 				87A1A7581DA0D4DC0080BADE /* RoamToolkit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,12 +87,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		870B3E091DB5CCD300954CB3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87A1A7571DA0D4DC0080BADE /* RoamToolkit.framework */,
+				870B3E0A1DB5CCD300954CB3 /* LocalAuthentication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		870B3E131DB5D98300954CB3 /* Folders */ = {
+			isa = PBXGroup;
+			children = (
+				87A1A7371DA0D08A0080BADE /* LFolderTableViewController.h */,
+				87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */,
+				87A1A7591DA1F5460080BADE /* LFolderTableViewCell.h */,
+				87A1A75A1DA1F5460080BADE /* LFolderTableViewCell.m */,
+			);
+			name = Folders;
+			sourceTree = "<group>";
+		};
+		870B3E141DB5D99600954CB3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				870B3E131DB5D98300954CB3 /* Folders */,
+				870B3E151DB5D9A400954CB3 /* Photos */,
+				870B3E171DB5D9D500954CB3 /* Settings */,
+			);
+			name = Screens;
+			sourceTree = "<group>";
+		};
+		870B3E151DB5D9A400954CB3 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				87A1A75C1DA1FE060080BADE /* LPhotoGridViewController.h */,
+				87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */,
+				87489EF51DA3628600738419 /* LPhotoGridViewCell.h */,
+				87489EF61DA3628600738419 /* LPhotoGridViewCell.m */,
+				87CCA9B61DAF3133000A1A01 /* LPhotoDetailViewController.h */,
+				87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */,
+				87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */,
+				87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */,
+			);
+			name = Photos;
+			sourceTree = "<group>";
+		};
+		870B3E161DB5D9C900954CB3 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */,
+				870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		870B3E171DB5D9D500954CB3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				870B3E181DB5DA4100954CB3 /* LSettingsViewController.h */,
+				870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		87A1A7251DA0D08A0080BADE = {
 			isa = PBXGroup;
 			children = (
 				87A1A7301DA0D08A0080BADE /* LLock */,
 				87A1A72F1DA0D08A0080BADE /* Products */,
-				87A1A7571DA0D4DC0080BADE /* RoamToolkit.framework */,
+				870B3E091DB5CCD300954CB3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,25 +173,8 @@
 				87A1A7551DA0D3B00080BADE /* Model */,
 				87A1A7341DA0D08A0080BADE /* AppDelegate.h */,
 				87A1A7351DA0D08A0080BADE /* AppDelegate.m */,
-				870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */,
-				870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */,
-				87A1A7371DA0D08A0080BADE /* LFolderTableViewController.h */,
-				87A1A7381DA0D08A0080BADE /* LFolderTableViewController.m */,
-				87A1A7591DA1F5460080BADE /* LFolderTableViewCell.h */,
-				87A1A75A1DA1F5460080BADE /* LFolderTableViewCell.m */,
-				87A1A75C1DA1FE060080BADE /* LPhotoGridViewController.h */,
-				87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */,
-				87489EF51DA3628600738419 /* LPhotoGridViewCell.h */,
-				87489EF61DA3628600738419 /* LPhotoGridViewCell.m */,
-				87CCA9B61DAF3133000A1A01 /* LPhotoDetailViewController.h */,
-				87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */,
-				87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */,
-				87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */,
-				87A1A7561DA0D4340080BADE /* PrefixHeader.pch */,
-				87A1A73A1DA0D08A0080BADE /* Main.storyboard */,
-				87A1A7401DA0D08A0080BADE /* Assets.xcassets */,
-				87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */,
-				87A1A7451DA0D08A0080BADE /* Info.plist */,
+				870B3E161DB5D9C900954CB3 /* Managers */,
+				870B3E141DB5D99600954CB3 /* Screens */,
 				87A1A7311DA0D08A0080BADE /* Supporting Files */,
 			);
 			path = LLock;
@@ -131,6 +183,11 @@
 		87A1A7311DA0D08A0080BADE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87A1A7401DA0D08A0080BADE /* Assets.xcassets */,
+				87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */,
+				87A1A7451DA0D08A0080BADE /* Info.plist */,
+				87A1A7561DA0D4340080BADE /* PrefixHeader.pch */,
+				870B3E101DB5D83C00954CB3 /* settings-icon.PNG */,
 				87A1A7321DA0D08A0080BADE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -217,7 +274,7 @@
 			files = (
 				87A1A7441DA0D08A0080BADE /* LaunchScreen.storyboard in Resources */,
 				87A1A7411DA0D08A0080BADE /* Assets.xcassets in Resources */,
-				87A1A73C1DA0D08A0080BADE /* Main.storyboard in Resources */,
+				870B3E111DB5D83C00954CB3 /* settings-icon.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +300,7 @@
 				87A1A7331DA0D08A0080BADE /* main.m in Sources */,
 				87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */,
 				87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */,
+				870B3E1A1DB5DA4100954CB3 /* LSettingsViewController.m in Sources */,
 				870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,14 +308,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		87A1A73A1DA0D08A0080BADE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				87A1A73B1DA0D08A0080BADE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

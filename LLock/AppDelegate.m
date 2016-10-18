@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "LFolderTableViewController.h"
+#import <LocalAuthentication/LocalAuthentication.h>
+
+static NSString *touchIDReason = @"Touch to get access";
 
 @interface AppDelegate ()
 
@@ -30,6 +33,8 @@
     
 //    [self clearDB];
     
+//    [self checkTouchId];
+    
     return YES;
 }
 
@@ -44,6 +49,21 @@
     }
     
     [DataStore save];
+}
+
+- (void)checkTouchId {
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:touchIDReason reply:^(BOOL success, NSError * _Nullable error) {
+            LOG(@"%@", success ? @"OK" : string(@"Error: %@", error));
+        }];
+    }
+    else {
+        NSLog(@"Can not evaluate Touch ID with error: %@", error);
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

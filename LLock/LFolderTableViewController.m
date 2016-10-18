@@ -9,6 +9,7 @@
 #import "LFolderTableViewController.h"
 #import "LFolderTableViewCell.h"
 #import "LPhotoGridViewController.h"
+#import "LSettingsViewController.h"
 
 @interface LFolderTableViewController () <UITextFieldDelegate, NSFetchedResultsControllerDelegate, LFolderTableViewCellDelegate>
 
@@ -34,7 +35,13 @@
     // Navigation bar: add photo button
     UIBarButtonItem *addFolderButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAddFolderButton)];
     addFolderButton.tintColor = C_WHITE;
-    self.navigationItem.rightBarButtonItem = addFolderButton;
+    self.navigationItem.leftBarButtonItem = addFolderButton;
+    
+    // Navigation bar: settings button
+    UIButton *settingsButton = [[UIButton alloc] initWithSize:size_square(23)];
+    [settingsButton setImage:[UIImage imageNamed:@"settings-icon.PNG"] forState:UIControlStateNormal];
+    [settingsButton addTarget:self action:@selector(didPressSettingsButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     // Add folder alert controller
     self.addFolderAlertController = [UIAlertController alertControllerWithTitle:@"New Folder" message:@"Enter a name for this folder." preferredStyle:UIAlertControllerStyleAlert];
@@ -83,7 +90,7 @@
     self.folders.delegate = self;
 }
 
-#pragma mark - Actions
+#pragma mark - Add/Delete Folder
 
 - (void)didPressAddFolderButton {
     // Show add folder alert controller
@@ -131,6 +138,14 @@
     [self hideDeleteFolderButton];
     [folder destroy];
     [DataStore save];
+}
+
+#pragma mark - Settings
+
+- (void)didPressSettingsButton {
+    LSettingsViewController *vc = [[LSettingsViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
