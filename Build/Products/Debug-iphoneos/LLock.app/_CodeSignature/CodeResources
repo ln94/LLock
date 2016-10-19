@@ -51,13 +51,17 @@
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>close_icon.PNG</key>
+		<data>
+		OwHYz7GzMLKnPcn8ORwNXBRpElc=
+		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
 		qlZ5nuneOl4PnwKhIj9nnyYDtm4=
 		</data>
-		<key>settings-icon.PNG</key>
+		<key>lock_icon.PNG</key>
 		<data>
-		w2fuaDj9gNODF4EQWWKKqMBHnME=
+		1jZLE/s6gbcZFiOEG7gH3fYIhZs=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -134,6 +138,17 @@
 			+TMnCAXJln+V0v2AtZTtPIKneuv031wL308n4oYHI70=
 			</data>
 		</dict>
+		<key>close_icon.PNG</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			OwHYz7GzMLKnPcn8ORwNXBRpElc=
+			</data>
+			<key>hash2</key>
+			<data>
+			TuBIUvBYAz4jy6JOuqkua4XGWu+C/3z5h4wQ2fqtANU=
+			</data>
+		</dict>
 		<key>embedded.mobileprovision</key>
 		<dict>
 			<key>hash</key>
@@ -145,15 +160,15 @@
 			62sq1ESR/kDTO+YM8WTYdUTrzkOof0MxhOv5ZLDBiJI=
 			</data>
 		</dict>
-		<key>settings-icon.PNG</key>
+		<key>lock_icon.PNG</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			w2fuaDj9gNODF4EQWWKKqMBHnME=
+			1jZLE/s6gbcZFiOEG7gH3fYIhZs=
 			</data>
 			<key>hash2</key>
 			<data>
-			zJqdLuZyAkp1fr54WpeaxxnljNETAfOVpEewd9Ufj1E=
+			MpsqC+mDCArIvFm5rxQTeJPktnO9tF6ClLETUvwL5Fw=
 			</data>
 		</dict>
 	</dict>

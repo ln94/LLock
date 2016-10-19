@@ -54,7 +54,9 @@ dependencies: \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhotoImage+CoreDataClass.h \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhotoImage+CoreDataProperties.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LPhotoManager.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/LSettingsManager.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LFolderTableViewController.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LFolderTableViewCell.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LPhotoGridViewController.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/LSettingsViewController.h
+  /Users/lanadeveloper/Playground/LLock/LLock/LSettingsViewController.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/LPinViewController.h

@@ -10,6 +10,7 @@
 #import "LFolderTableViewCell.h"
 #import "LPhotoGridViewController.h"
 #import "LSettingsViewController.h"
+#import "LPinViewController.h"
 
 @interface LFolderTableViewController () <UITextFieldDelegate, NSFetchedResultsControllerDelegate, LFolderTableViewCellDelegate>
 
@@ -26,10 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = C_CLEAR;
-    
     // Navigation bar
-//    self.navigationItem.title = [@"Folders" uppercaseString];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // Navigation bar: add photo button
@@ -38,8 +36,8 @@
     self.navigationItem.leftBarButtonItem = addFolderButton;
     
     // Navigation bar: settings button
-    UIButton *settingsButton = [[UIButton alloc] initWithSize:size_square(23)];
-    [settingsButton setImage:[UIImage imageNamed:@"settings-icon.PNG"] forState:UIControlStateNormal];
+    UIButton *settingsButton = [[UIButton alloc] initWithSize:s(14,20)];
+    [settingsButton setImage:[UIImage imageNamed:@"lock_icon.PNG"] forState:UIControlStateNormal];
     [settingsButton addTarget:self action:@selector(didPressSettingsButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
@@ -81,6 +79,7 @@
     [self.tableView registerClass:[LFolderTableViewCell class] forCellReuseIdentifier:[LFolderTableViewCell reuseIdentifier]];
     self.tableView.rowHeight = [LFolderTableViewCell rowHeight];
     self.tableView.contentInset = inset_bottom(20);
+    self.tableView.tableFooterView = [[UIView alloc] init];
     
     // Frc
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LFolder class]];
@@ -88,6 +87,13 @@
     self.folders = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:DataContext sectionNameKeyPath:nil cacheName:nil];
     [self.folders performFetch];
     self.folders.delegate = self;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    LPinViewController *vc = [[LPinViewController alloc] initWithType:LPinViewControllerTypeSetup];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 }
 
 #pragma mark - Add/Delete Folder

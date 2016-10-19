@@ -10,7 +10,7 @@
 
 static NSString *const reuseIdentifier = @"folderTableCell";
 
-static const CGFloat kCellRowHeight = 50;
+static const CGFloat kCellRowHeight = 55;
 static const CGFloat kDeleteButtonWidth = 110;
 
 @interface LFolderTableViewCell()
@@ -39,11 +39,11 @@ static const CGFloat kDeleteButtonWidth = 110;
     
     self.folderNameLabel = [[UILabel alloc] initFullInSuperview:self.cellView insets:i(0, 50, 0, 20)];
     self.folderNameLabel.backgroundColor = C_CLEAR;
-    self.folderNameLabel.textColor = C_WHITE;
-    self.folderNameLabel.font = [UIFont systemFontOfSize:17];
+    self.folderNameLabel.textColor = C_MAIN_WHITE;
+    self.folderNameLabel.font = [UIFont systemFontOfSize:16];
     self.folderNameLabel.textAlignment = NSTextAlignmentLeft;
     
-    self.photoCountLabel = [[UILabel alloc] initInSuperview:self.cellView edge:UIViewEdgeRight length:35 insets:inset_right(10)];
+    self.photoCountLabel = [[UILabel alloc] initInSuperview:self.cellView edge:UIViewEdgeRight length:35 insets:inset_right(18)];
     self.photoCountLabel.backgroundColor = C_CLEAR;
     self.photoCountLabel.textColor = C_LIGHT_GRAY;
     self.photoCountLabel.font = [UIFont systemFontOfSize:14];

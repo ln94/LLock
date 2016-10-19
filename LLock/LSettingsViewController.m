@@ -7,6 +7,7 @@
 //
 
 #import "LSettingsViewController.h"
+#import "LSettingsViewCell.h"
 
 @interface LSettingsViewController ()
 
@@ -17,41 +18,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = C_BLACK;
-    
     // Navigation bar
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = C_WHITE;
 
-    self.navigationItem.title = [@"Settings" uppercaseString];
+    UIButton *closeButton = [[UIButton alloc] initWithSize:size_square(23)];
+    [closeButton setImage:[UIImage imageNamed:@"close_icon.PNG"] forState:UIControlStateNormal];
+    [closeButton addTarget:self action:@selector(didPressCloseButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    
+    // Table view
+    self.tableView.backgroundColor = C_BLACK;
+    self.tableView.separatorColor = C_DARK_GRAY;
+    [self.tableView registerClass:[LSettingsViewCell class] forCellReuseIdentifier:[LSettingsViewCell reuseIdentifier]];
+    self.tableView.rowHeight = [LSettingsViewCell rowHeight];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didPressCloseButton {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return 2;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    LSettingsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[LSettingsViewCell reuseIdentifier] forIndexPath:indexPath];
+    cell.type = indexPath.row == 0 ? LSettingsViewCellTypePIN : LSettingsViewCellTypeTouchID;
     
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

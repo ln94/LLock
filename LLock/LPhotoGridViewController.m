@@ -44,7 +44,7 @@
     self.view.backgroundColor = C_CLEAR;
     
     // Navigation bar: title
-    self.navigationItem.title = [self.folder.name uppercaseString];
+    self.navigationItem.title = self.folder.name;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // Navigation bar: add photo button

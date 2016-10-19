@@ -9,10 +9,13 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#define C_MAIN_WHITE C_GRAY(0.93)
+
 #import <RoamToolkit/RoamToolkit.h>
 #import "LFolder+CoreDataClass.h"
 #import "LPhotoData+CoreDataClass.h"
 #import "LPhotoImage+CoreDataClass.h"
 #import "LPhotoManager.h"
+#import "LSettingsManager.h"
 
 #endif /* PrefixHeader_pch */

@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		870B3E0B1DB5CCD300954CB3 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870B3E0A1DB5CCD300954CB3 /* LocalAuthentication.framework */; };
-		870B3E111DB5D83C00954CB3 /* settings-icon.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 870B3E101DB5D83C00954CB3 /* settings-icon.PNG */; };
 		870B3E1A1DB5DA4100954CB3 /* LSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */; };
+		870B3E201DB6D81100954CB3 /* close_icon.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 870B3E1F1DB6D81100954CB3 /* close_icon.PNG */; };
+		870B3E261DB6D96D00954CB3 /* lock_icon.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 870B3E251DB6D96D00954CB3 /* lock_icon.PNG */; };
 		870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */; };
 		870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BC1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m */; };
 		870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 870D66BE1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m */; };
@@ -29,13 +30,18 @@
 		87A1A75E1DA1FE060080BADE /* LPhotoGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */; };
 		87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */; };
 		87CCA9BB1DAF327E000A1A01 /* LPhotoDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */; };
+		87F3F5351DB6DD6A00A7A64A /* LSettingsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F5341DB6DD6A00A7A64A /* LSettingsViewCell.m */; };
+		87F3F5381DB6F39200A7A64A /* LSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F5371DB6F39200A7A64A /* LSettingsManager.m */; };
+		87F3F53B1DB7155700A7A64A /* LPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F53A1DB7155700A7A64A /* LPinViewController.m */; };
+		87F3F53F1DB71BE700A7A64A /* LPinDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F53E1DB71BE700A7A64A /* LPinDotView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		870B3E0A1DB5CCD300954CB3 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		870B3E101DB5D83C00954CB3 /* settings-icon.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-icon.PNG"; sourceTree = "<group>"; };
 		870B3E181DB5DA4100954CB3 /* LSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsViewController.h; sourceTree = "<group>"; };
 		870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSettingsViewController.m; sourceTree = "<group>"; };
+		870B3E1F1DB6D81100954CB3 /* close_icon.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_icon.PNG; sourceTree = "<group>"; };
+		870B3E251DB6D96D00954CB3 /* lock_icon.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.PNG; sourceTree = "<group>"; };
 		870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoManager.h; sourceTree = "<group>"; };
 		870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoManager.m; sourceTree = "<group>"; };
 		870D66BB1DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LPhotoImage+CoreDataClass.h"; path = "Model/LPhotoImage+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -72,6 +78,14 @@
 		87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewController.m; sourceTree = "<group>"; };
 		87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoDetailViewCell.h; sourceTree = "<group>"; };
 		87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewCell.m; sourceTree = "<group>"; };
+		87F3F5331DB6DD6A00A7A64A /* LSettingsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsViewCell.h; sourceTree = "<group>"; };
+		87F3F5341DB6DD6A00A7A64A /* LSettingsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSettingsViewCell.m; sourceTree = "<group>"; };
+		87F3F5361DB6F39200A7A64A /* LSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsManager.h; sourceTree = "<group>"; };
+		87F3F5371DB6F39200A7A64A /* LSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSettingsManager.m; sourceTree = "<group>"; };
+		87F3F5391DB7155700A7A64A /* LPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPinViewController.h; sourceTree = "<group>"; };
+		87F3F53A1DB7155700A7A64A /* LPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPinViewController.m; sourceTree = "<group>"; };
+		87F3F53D1DB71BE700A7A64A /* LPinDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPinDotView.h; sourceTree = "<group>"; };
+		87F3F53E1DB71BE700A7A64A /* LPinDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPinDotView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +127,7 @@
 				870B3E131DB5D98300954CB3 /* Folders */,
 				870B3E151DB5D9A400954CB3 /* Photos */,
 				870B3E171DB5D9D500954CB3 /* Settings */,
+				87F3F53C1DB7155A00A7A64A /* PIN */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -137,6 +152,8 @@
 			children = (
 				870D66B81DAC95DF0072A8C0 /* LPhotoManager.h */,
 				870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */,
+				87F3F5361DB6F39200A7A64A /* LSettingsManager.h */,
+				87F3F5371DB6F39200A7A64A /* LSettingsManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -146,6 +163,8 @@
 			children = (
 				870B3E181DB5DA4100954CB3 /* LSettingsViewController.h */,
 				870B3E191DB5DA4100954CB3 /* LSettingsViewController.m */,
+				87F3F5331DB6DD6A00A7A64A /* LSettingsViewCell.h */,
+				87F3F5341DB6DD6A00A7A64A /* LSettingsViewCell.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -184,10 +203,11 @@
 			isa = PBXGroup;
 			children = (
 				87A1A7401DA0D08A0080BADE /* Assets.xcassets */,
+				870B3E1F1DB6D81100954CB3 /* close_icon.PNG */,
+				870B3E251DB6D96D00954CB3 /* lock_icon.PNG */,
 				87A1A7421DA0D08A0080BADE /* LaunchScreen.storyboard */,
 				87A1A7451DA0D08A0080BADE /* Info.plist */,
 				87A1A7561DA0D4340080BADE /* PrefixHeader.pch */,
-				870B3E101DB5D83C00954CB3 /* settings-icon.PNG */,
 				87A1A7321DA0D08A0080BADE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -211,6 +231,17 @@
 				87489EEC1DA3294500738419 /* LFolder+CoreDataProperties.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		87F3F53C1DB7155A00A7A64A /* PIN */ = {
+			isa = PBXGroup;
+			children = (
+				87F3F5391DB7155700A7A64A /* LPinViewController.h */,
+				87F3F53A1DB7155700A7A64A /* LPinViewController.m */,
+				87F3F53D1DB71BE700A7A64A /* LPinDotView.h */,
+				87F3F53E1DB71BE700A7A64A /* LPinDotView.m */,
+			);
+			name = PIN;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,8 +304,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				87A1A7441DA0D08A0080BADE /* LaunchScreen.storyboard in Resources */,
+				870B3E261DB6D96D00954CB3 /* lock_icon.PNG in Resources */,
 				87A1A7411DA0D08A0080BADE /* Assets.xcassets in Resources */,
-				870B3E111DB5D83C00954CB3 /* settings-icon.PNG in Resources */,
+				870B3E201DB6D81100954CB3 /* close_icon.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +322,7 @@
 				870D66C41DAC9C1E0072A8C0 /* LPhotoImage+CoreDataProperties.m in Sources */,
 				870D66C61DAC9C1E0072A8C0 /* LPhotoData+CoreDataProperties.m in Sources */,
 				87A1A7391DA0D08A0080BADE /* LFolderTableViewController.m in Sources */,
+				87F3F53B1DB7155700A7A64A /* LPinViewController.m in Sources */,
 				87CCA9BB1DAF327E000A1A01 /* LPhotoDetailViewCell.m in Sources */,
 				87489EF21DA3294500738419 /* LFolder+CoreDataProperties.m in Sources */,
 				870D66C51DAC9C1E0072A8C0 /* LPhotoData+CoreDataClass.m in Sources */,
@@ -299,9 +332,12 @@
 				870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */,
 				87A1A7331DA0D08A0080BADE /* main.m in Sources */,
 				87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */,
+				87F3F53F1DB71BE700A7A64A /* LPinDotView.m in Sources */,
+				87F3F5351DB6DD6A00A7A64A /* LSettingsViewCell.m in Sources */,
 				87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */,
 				870B3E1A1DB5DA4100954CB3 /* LSettingsViewController.m in Sources */,
 				870D66C31DAC9C1E0072A8C0 /* LPhotoImage+CoreDataClass.m in Sources */,
+				87F3F5381DB6F39200A7A64A /* LSettingsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
