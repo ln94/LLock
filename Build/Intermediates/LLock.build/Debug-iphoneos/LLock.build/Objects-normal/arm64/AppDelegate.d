@@ -55,4 +55,5 @@ dependencies: /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.m \
   /Users/lanadeveloper/Playground/LLock/LLock/LPhotoManager.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LSettingsManager.h \
   /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/LFolderTableViewController.h
+  /Users/lanadeveloper/Playground/LLock/LLock/LFolderTableViewController.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/LPinViewController.h

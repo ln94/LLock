@@ -33,7 +33,7 @@ static const CGFloat kCellRowHeight = 70;
     // Text Label
     self.label = [[UILabel alloc] initFullInSuperview:self.contentView insets:inset_left(20)];
     self.label.backgroundColor = C_CLEAR;
-    self.label.textColor = C_MAIN_WHITE;
+    self.label.textColor = C_MAIN;
     self.label.font = [UIFont systemFontOfSize:16];
     self.label.textAlignment = NSTextAlignmentLeft;
     
@@ -61,44 +61,18 @@ static const CGFloat kCellRowHeight = 70;
     
     if (type == LSettingsViewCellTypePIN) {
         self.label.text = @"Passcode";
-        self.switchControl.on = SettingsManager.pinEnabled;
+        [self.switchControl setOn:SettingsManager.pinEnabled animated:YES];
     }
     else {
         self.label.text = @"Touch ID";
-        self.switchControl.on = SettingsManager.touchIDEnabled;
+        [self.switchControl setOn:SettingsManager.touchIDEnabled animated:YES];
     }
 }
 
 - (void)didChangeSwitchControl {
     
-    if (self.type == LSettingsViewCellTypePIN){
-        
-        if (self.switchControl.on) {
-            // Enable PIN
-            // Open PIN screen
-            
-        }
-        else {
-            // Disable PIN
-            // Open PIN screen
-        }
-        
-    } else {
-        
-        if (self.switchControl.on) {
-            // Enable Touch ID
-            // Check if PIN is enable
-            if (SettingsManager.pinEnabled) {
-                SettingsManager.touchIDEnabled = YES;
-            }
-            else {
-                
-            }
-        }
-        else {
-            // Disable PIN
-            // Open PIN screen
-        }
+    if (self.delegate) {
+        [self.delegate settingsViewCell:self didChangeSwitch:self.switchControl.on];
     }
 }
 

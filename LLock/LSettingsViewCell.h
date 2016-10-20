@@ -13,11 +13,21 @@ typedef NS_ENUM(NSUInteger, LSettingsViewCellType) {
     LSettingsViewCellTypeTouchID
 };
 
+@protocol LSettingsViewCellDelegate;
+
 @interface LSettingsViewCell : UITableViewCell
 
 @property (nonatomic) LSettingsViewCellType type;
 
+@property (nonatomic) id<LSettingsViewCellDelegate> delegate;
+
 + (NSString *)reuseIdentifier;
 + (CGFloat)rowHeight;
+
+@end
+
+@protocol LSettingsViewCellDelegate <NSObject>
+
+- (void)settingsViewCell:(LSettingsViewCell *)cell didChangeSwitch:(BOOL)on;
 
 @end

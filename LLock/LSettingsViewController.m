@@ -8,9 +8,11 @@
 
 #import "LSettingsViewController.h"
 #import "LSettingsViewCell.h"
+#import "LPinViewController.h"
 
-@interface LSettingsViewController ()
+@interface LSettingsViewController () <LSettingsViewCellDelegate>
 
+@property (nonatomic) UIAlertController *pinChangeActionSheet;
 @end
 
 @implementation LSettingsViewController
@@ -33,6 +35,26 @@
     [self.tableView registerClass:[LSettingsViewCell class] forCellReuseIdentifier:[LSettingsViewCell reuseIdentifier]];
     self.tableView.rowHeight = [LSettingsViewCell rowHeight];
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    // Pin change alert controller
+    self.pinChangeActionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *changeAction = [UIAlertAction actionWithTitle:@"Change Passcode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self openPinViewControllerWithType:LPinViewControllerTypeChange];
+    }];
+    [self.pinChangeActionSheet addAction:changeAction];
+    UIAlertAction *disableAction = [UIAlertAction actionWithTitle:@"Disable Passcode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self openPinViewControllerWithType:LPinViewControllerTypeDisable];
+    }];
+    [self.pinChangeActionSheet addAction:disableAction];
+    [self.pinChangeActionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableView reloadData];
+    }]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didPressCloseButton {
@@ -52,52 +74,68 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LSettingsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[LSettingsViewCell reuseIdentifier] forIndexPath:indexPath];
     cell.type = indexPath.row == 0 ? LSettingsViewCellTypePIN : LSettingsViewCellTypeTouchID;
+    cell.delegate = self;
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+#pragma mark - LSettingsViewCellDelegate
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)settingsViewCell:(LSettingsViewCell *)cell didChangeSwitch:(BOOL)on {
+    
+    if (cell.type == LSettingsViewCellTypePIN){
+        
+        if (on) {
+            // Enable PIN
+            // Open PIN setup screen
+            [self openPinViewControllerWithType:LPinViewControllerTypeSetup];
+        }
+        else {
+            // Disable or change PIN
+            // Open alert view controller
+            [self presentViewController:self.pinChangeActionSheet animated:YES completion:nil];
+        }
+        
+    } else {
+        
+        if (on) {
+            // Enable Touch ID
+            // Check if passcode was setup
+            if (SettingsManager.pinEnabled) {
+                
+                // Check if Touch ID is available
+                if (SettingsManager.touchIDAvailable) {
+                    // Enable
+                    SettingsManager.touchIDEnabled = YES;
+                }
+                else {
+                    // Show avalability error
+                    UIAlertController *errorVC = [UIAlertController alertControllerWithTitle:@"Touch ID" message:@"Touch ID is not available." preferredStyle:UIAlertControllerStyleAlert];
+                    [errorVC addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                    [self presentViewController:errorVC animated:YES completion:^{
+                        [self.tableView reloadData];
+                    }];
+                }
+            } else {
+                // Show pin disabled error
+                UIAlertController *errorVC = [UIAlertController alertControllerWithTitle:@"Touch ID" message:@"Enable passcode first." preferredStyle:UIAlertControllerStyleAlert];
+                [errorVC addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:errorVC animated:YES completion:^{
+                    [self.tableView reloadData];
+                }];
+            }
+        }
+        else {
+            // Disable Touch ID
+            SettingsManager.touchIDEnabled = NO;
+        }
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)openPinViewControllerWithType:(LPinViewControllerType)type {
+    
+    LPinViewController *vc = [[LPinViewController alloc] initWithType:type];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -8,9 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LFolderTableViewController.h"
-#import <LocalAuthentication/LocalAuthentication.h>
-
-static NSString *touchIDReason = @"Touch to get access";
+#import "LPinViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,48 +20,17 @@ static NSString *touchIDReason = @"Touch to get access";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = C_BLACK;
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:[[LFolderTableViewController alloc] init]];
-    self.navController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navController.navigationBar.tintColor = C_WHITE;
-    
-    self.window.rootViewController = self.navController;
+    LFolderTableViewController *vc = [[LFolderTableViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];;
     [self.window makeKeyAndVisible];
     
-//    [self clearDB];
-    
-//    [self checkTouchId];
+    if (SettingsManager.pinEnabled) {
+        LPinViewController *pinVC = [[LPinViewController alloc] initWithType:LPinViewControllerTypeEnter];
+        [vc presentViewController:[[UINavigationController alloc] initWithRootViewController:pinVC] animated:YES completion:nil];
+    }
     
     return YES;
-}
-
-- (void)clearDB {
-    
-    for (LPhotoData *photo in [LPhotoData all]) {
-        [photo destroy];
-    }
-    
-    for (LPhotoImage *photo in [LPhotoImage all]) {
-        [photo destroy];
-    }
-    
-    [DataStore save];
-}
-
-- (void)checkTouchId {
-    LAContext *context = [[LAContext alloc] init];
-    NSError *error = nil;
-    
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-        
-        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:touchIDReason reply:^(BOOL success, NSError * _Nullable error) {
-            LOG(@"%@", success ? @"OK" : string(@"Error: %@", error));
-        }];
-    }
-    else {
-        NSLog(@"Can not evaluate Touch ID with error: %@", error);
-    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

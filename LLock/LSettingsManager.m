@@ -7,6 +7,7 @@
 //
 
 #import "LSettingsManager.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 #define Defaults [NSUserDefaults standardUserDefaults]
 
@@ -15,12 +16,15 @@ static NSString *const L_PIN_ENABLED_KEY = @"L_PIN_ENABLED";
 static NSString *const L_PIN_KEY = @"L_PIN_KEY";
 static NSString *const L_TOUCH_ID_ENABLED_KEY = @"L_TOUCH_ID_ENABLED";
 
+static NSString *touchIDReason = @"Touch to get access";
+
 @implementation LSettingsManager
 
 - (void)setup {
     
     NSDictionary *defaultPreferences = @{
                                          L_PIN_ENABLED_KEY: @(NO),
+                                         L_PIN_KEY: @(-1),
                                          L_TOUCH_ID_ENABLED_KEY: @(NO)
                                          };
     
@@ -61,5 +65,25 @@ static NSString *const L_TOUCH_ID_ENABLED_KEY = @"L_TOUCH_ID_ENABLED";
 - (BOOL)touchIDEnabled {
     return [Defaults boolForKey:L_TOUCH_ID_ENABLED_KEY];
 }
+
+- (BOOL)touchIDAvailable {
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+//    if () {
+//        
+//    }
+//    else {
+//        NSLog(@"Can not evaluate Touch ID with error: %@", error);
+//    }
+}
+
+- (void)askForTouchID:(void(^)(BOOL success, NSError *error))reply {
+    LAContext *context = [[LAContext alloc] init];
+    [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:touchIDReason reply:^(BOOL success, NSError * _Nullable error) {
+        reply(success, error);
+    }];
+}
+
 
 @end

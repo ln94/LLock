@@ -11,6 +11,8 @@
 typedef NS_ENUM(NSUInteger, LPinViewControllerType) {
     LPinViewControllerTypeSetup,
     LPinViewControllerTypeConfirm,
+    LPinViewControllerTypeChange,
+    LPinViewControllerTypeDisable,
     LPinViewControllerTypeEnter
 };
 

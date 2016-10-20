@@ -8,7 +8,8 @@
 
 #import "LPinDotView.h"
 
-static const CGFloat width = 20;
+static const CGFloat width = 15;
+static const CGFloat between = 20;
 
 @interface LPinDotView ()
 
@@ -27,12 +28,12 @@ static const CGFloat width = 20;
     
     // Line
     self.line = [[UIView alloc] initCenterInSuperview:self size:s(width, 2)];
-    self.line.backgroundColor = C_MAIN_WHITE;
+    self.line.backgroundColor = C_MAIN;
     
     // Circle
     self.circle = [[UIView alloc] initCenterInSuperview:self size:size_square(width)];
     self.circle.layer.cornerRadius = width / 2;
-    self.circle.backgroundColor = C_MAIN_WHITE;
+    self.circle.backgroundColor = C_MAIN;
     
     self.entered = NO;
     
@@ -41,6 +42,10 @@ static const CGFloat width = 20;
 
 + (CGFloat)width {
     return width;
+}
+
++ (CGFloat)between {
+    return between;
 }
 
 - (void)setEntered:(BOOL)entered {

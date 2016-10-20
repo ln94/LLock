@@ -27,7 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = C_BLACK;
+    
     // Navigation bar
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.tintColor = C_WHITE;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // Navigation bar: add photo button
@@ -89,12 +93,6 @@
     self.folders.delegate = self;
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    LPinViewController *vc = [[LPinViewController alloc] initWithType:LPinViewControllerTypeSetup];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
-}
 
 #pragma mark - Add/Delete Folder
 
@@ -145,6 +143,7 @@
     [folder destroy];
     [DataStore save];
 }
+
 
 #pragma mark - Settings
 

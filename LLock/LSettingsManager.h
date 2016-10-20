@@ -14,6 +14,10 @@
 
 @property (nonatomic) BOOL pinEnabled;
 @property (nonatomic) NSInteger pin;
+
+@property (nonatomic) BOOL touchIDAvailable;
 @property (nonatomic) BOOL touchIDEnabled;
+
+- (void)askForTouchID:(void(^)(BOOL success, NSError *error))reply ;
 
 @end

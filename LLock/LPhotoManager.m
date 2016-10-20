@@ -53,4 +53,17 @@
     return [NSNumber numberWithInteger:photoId];
 }
 
+- (void)clearDB {
+    
+    for (LPhotoData *photo in [LPhotoData all]) {
+        [photo destroy];
+    }
+    
+    for (LPhotoImage *photo in [LPhotoImage all]) {
+        [photo destroy];
+    }
+    
+    [DataStore save];
+}
+
 @end

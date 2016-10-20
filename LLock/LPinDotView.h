@@ -13,5 +13,6 @@
 @property (nonatomic) BOOL entered;
 
 +(CGFloat)width;
++(CGFloat)between;
 
 @end

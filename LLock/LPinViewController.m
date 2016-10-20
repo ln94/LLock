@@ -15,13 +15,13 @@ static const NSInteger pinLength = 4;
 
 @property (nonatomic) LPinViewControllerType type;
 
-@property (nonatomic) NSString *pin;
+@property (nonatomic) NSInteger pin;
 
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) NSMutableArray<LPinDotView *> *pinDotView;
 
-@property (nonatomic, strong) UILabel *notMatchLabel;
+@property (nonatomic, strong) UILabel *errorLabel;
 
 @end
 
@@ -50,13 +50,13 @@ static const NSInteger pinLength = 4;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
     
     // Label
-    self.label = [[UILabel alloc] initCenterInSuperview:self.view size:s(self.view.width, 30)];
-    self.label.y -= 100;
-    self.label.backgroundColor = C_CLEAR;
-    self.label.textColor = C_MAIN_WHITE;
-    self.label.font = [UIFont systemFontOfSize:16];
-    self.label.textAlignment = NSTextAlignmentCenter;
-    self.label.text = [self labelText];
+    self.titleLabel = [[UILabel alloc] initCenterInSuperview:self.view size:s(self.view.width, 30)];
+    self.titleLabel.y -= 100;
+    self.titleLabel.backgroundColor = C_CLEAR;
+    self.titleLabel.textColor = C_MAIN;
+    self.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.text = [self titleLabelText];
     
     // Textfield
     self.textField = [[UITextField alloc] initCenterInSuperview:self.view size:CGSizeZero];
@@ -67,26 +67,36 @@ static const NSInteger pinLength = 4;
     
     // Pin dots
     self.pinDotView = [NSMutableArray arrayWithCapacity:4];
-    CGFloat between = 26;
     for (int i = 0; i < pinLength; i++) {
         [self.pinDotView addObject:[[LPinDotView alloc] initCenterInSuperview:self.view size:size_square([LPinDotView width])]];
-        self.pinDotView[i].y = self.label.bottom + 30;
-        self.pinDotView[i].x -= [LPinDotView width]*(0.5+1-i) + between*(0.5+1-i);
+        self.pinDotView[i].y = self.titleLabel.bottom + 30;
+        self.pinDotView[i].x -= [LPinDotView width]*(0.5+1-i) + [LPinDotView between]*(0.5+1-i);
     }
     
     // Passcodes not match label
-    self.notMatchLabel = [[UILabel alloc] initCenterInSuperview:self.view size:s(self.view.width, 30)];
-    self.notMatchLabel.y = self.pinDotView[0].y + 50;
-    self.notMatchLabel.backgroundColor = C_CLEAR;
-    self.notMatchLabel.textColor = C_MAIN_WHITE;
-    self.notMatchLabel.font = [UIFont systemFontOfSize:14];
-    self.notMatchLabel.textAlignment = NSTextAlignmentCenter;
-    self.notMatchLabel.text = @"Passcodes did not match. Try again.";
-    self.notMatchLabel.hidden = YES;
+    self.errorLabel = [[UILabel alloc] initCenterInSuperview:self.view size:s(self.view.width, 30)];
+    self.errorLabel.y = self.pinDotView[0].y + 50;
+    self.errorLabel.backgroundColor = C_CLEAR;
+    self.errorLabel.textColor = C_SECONDARY;
+    self.errorLabel.font = [UIFont systemFontOfSize:14.5];
+    self.errorLabel.textAlignment = NSTextAlignmentCenter;
+    self.errorLabel.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (SettingsManager.touchIDEnabled && SettingsManager.touchIDAvailable) {
+        [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
+            if (success) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
     
     [self.textField becomeFirstResponder];
 }
@@ -98,42 +108,68 @@ static const NSInteger pinLength = 4;
 #pragma mark - Setters
 
 -(void)setType:(LPinViewControllerType)type {
+    
+    // Process error if it happened
+    [self processErrorForNewType:type fromOldType:self.type];
+    
     _type = type;
     
-    self.label.text = [self labelText];
+    // Reset UI
+    self.titleLabel.text = [self titleLabelText];
     self.textField.text = @"";
     for (LPinDotView *dot in self.pinDotView) {
         dot.entered = NO;
     }
-    
-    self.notMatchLabel.hidden = type != LPinViewControllerTypeSetup;
 }
-- (NSString *)labelText {
+- (NSString *)titleLabelText {
     
     switch (self.type) {
         case LPinViewControllerTypeSetup:
             return @"Enter your new passcode";
-            break;
            
         case LPinViewControllerTypeConfirm:
             return @"Confirm your new passcode";
+           
+        case LPinViewControllerTypeChange:
+        case LPinViewControllerTypeDisable:
+            return @"Enter your old passcode";
+            
+        case LPinViewControllerTypeEnter:
+            return @"Enter passcode";
             
         default:
             return nil;
-            break;
+    }
+}
+
+- (void)processErrorForNewType:(LPinViewControllerType)newType fromOldType:(LPinViewControllerType)oldType {
+    
+    if (newType == LPinViewControllerTypeSetup && oldType == LPinViewControllerTypeConfirm) {
+        self.errorLabel.text = @"Passcodes did not match. Try again.";
+        self.errorLabel.hidden = NO;
+    }
+    else if ((newType == LPinViewControllerTypeChange && oldType == LPinViewControllerTypeChange)
+             || (newType == LPinViewControllerTypeDisable && oldType == LPinViewControllerTypeDisable)
+             || (newType == LPinViewControllerTypeEnter && oldType == LPinViewControllerTypeEnter)) {
+        self.errorLabel.text = @"Incorrect passcode. Try again.";
+        self.errorLabel.hidden = NO;
+    }
+    else {
+        self.errorLabel.hidden = YES;
     }
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    return NO;
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     int oldCount = (int)textField.text.length;
     int newCount = (int)[textField.text stringByReplacingCharactersInRange:range withString:string].length;
+    
+    if (newCount > pinLength) {
+        // Too many digits, some error
+        return NO;
+    }
     
     if (newCount > oldCount) {
         // Add circle dot
@@ -141,7 +177,7 @@ static const NSInteger pinLength = 4;
         
         if (newCount == pinLength) {
             run_delayed(0.1f, ^{
-                [self pinEntered:[textField.text stringByReplacingCharactersInRange:range withString:string]];
+                [self pinEntered:[[textField.text stringByReplacingCharactersInRange:range withString:string] integerValue]];
             });
             return NO;
         }
@@ -154,7 +190,7 @@ static const NSInteger pinLength = 4;
     return YES;
 }
 
-- (void)pinEntered:(NSString *)pin {
+- (void)pinEntered:(NSInteger)pin {
     
     switch (self.type) {
             
@@ -169,21 +205,67 @@ static const NSInteger pinLength = 4;
         case LPinViewControllerTypeConfirm: {
             
             // Check pin match
-            if ([pin isEqualToString:self.pin]) {
+            if (pin == self.pin) {
                 
                 // Save pin
                 SettingsManager.pinEnabled = YES;
-                SettingsManager.pin = [self.pin integerValue];
-                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                SettingsManager.pin = self.pin;
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
             else {
                 // Return to Setup
-                self.pin = nil;
+                self.pin = -1;
                 self.type = LPinViewControllerTypeSetup;
             }
         }
             break;
             
+        case LPinViewControllerTypeChange: {
+            
+            // Check if old pin was entered correctly
+            if (pin == SettingsManager.pin) {
+                
+                // Setup new pin
+                self.type = LPinViewControllerTypeSetup;
+            }
+            else {
+                // Show error
+                self.type = LPinViewControllerTypeChange;
+            }
+        }
+            break;
+            
+        case LPinViewControllerTypeDisable: {
+            
+            // Check if old pin was entered correctly
+            if (pin == SettingsManager.pin) {
+                
+                // Disable pin
+                SettingsManager.pinEnabled = NO;
+                SettingsManager.pin = -1;
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                // Show error
+                self.type = LPinViewControllerTypeDisable;
+            }
+        }
+            break;
+            
+        case LPinViewControllerTypeEnter: {
+            
+            // Check if pin was entered correctly
+            if (pin == SettingsManager.pin) {
+                
+                // Grant access
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                // Show error
+                self.type = LPinViewControllerTypeEnter;
+            }
+        }
+            break;
             
         default:
             break;

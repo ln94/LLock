@@ -9,7 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#define C_MAIN_WHITE C_GRAY(0.93)
+#define C_MAIN C_GRAY(0.93)
+#define C_SECONDARY C_LIGHT_GRAY
 
 #import <RoamToolkit/RoamToolkit.h>
 #import "LFolder+CoreDataClass.h"
