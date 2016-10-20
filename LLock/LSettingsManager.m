@@ -70,12 +70,6 @@ static NSString *touchIDReason = @"Touch to get access";
     LAContext *context = [[LAContext alloc] init];
     NSError *error = nil;
     return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
-//    if () {
-//        
-//    }
-//    else {
-//        NSLog(@"Can not evaluate Touch ID with error: %@", error);
-//    }
 }
 
 - (void)askForTouchID:(void(^)(BOOL success, NSError *error))reply {

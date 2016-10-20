@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) LFolderTableViewCell *cellWithDeleteButtonShown;
 
+@property (nonatomic, strong) UIView *blackView;
+
 @end
 
 @implementation LFolderTableViewController
@@ -91,6 +93,10 @@
     self.folders = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:DataContext sectionNameKeyPath:nil cacheName:nil];
     [self.folders performFetch];
     self.folders.delegate = self;
+    
+    // Black view to hide
+    self.blackView = [[UIView alloc] initFullInSuperview:self.view];
+    self.blackView.backgroundColor = C_BLACK;
 }
 
 

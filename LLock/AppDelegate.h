@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "LFolderTableViewController.h"
 
 #define LLock ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) LFolderTableViewController *mainViewController;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 

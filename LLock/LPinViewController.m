@@ -23,6 +23,8 @@ static const NSInteger pinLength = 4;
 
 @property (nonatomic, strong) UILabel *errorLabel;
 
+@property (nonatomic) BOOL isTouchIDAsked;
+
 @end
 
 @implementation LPinViewController
@@ -35,6 +37,7 @@ static const NSInteger pinLength = 4;
     
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -83,26 +86,31 @@ static const NSInteger pinLength = 4;
     self.errorLabel.hidden = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if (SettingsManager.touchIDEnabled && SettingsManager.touchIDAvailable) {
-        [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
-            if (success) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-        }];
-    }
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    
-    [self.textField becomeFirstResponder];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    
+//    LOG(@"viewWillAppear");
+//}
 
 - (void)didPressCloseButton {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)askForTouchID {
+    
+    if (SettingsManager.touchIDEnabled && SettingsManager.touchIDAvailable) {
+        
+        [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
+            run_main(^{
+                if (success) {
+                    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+                }
+                else {
+                    [self.textField becomeFirstResponder];
+                }
+            });
+        }];
+    }
 }
 
 #pragma mark - Setters

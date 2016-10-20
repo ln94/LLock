@@ -20,4 +20,6 @@ typedef NS_ENUM(NSUInteger, LPinViewControllerType) {
 
 - (instancetype)initWithType:(LPinViewControllerType)type;
 
+- (void)askForTouchID;
+
 @end
