@@ -12,8 +12,7 @@
 
 @interface LFolderTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) NSString *folderName;
-@property (nonatomic) NSInteger photoCount;
+@property (nonatomic, strong) LFolder *folder;
 
 @property (nonatomic) BOOL showDeleteButton;
 

@@ -12,6 +12,7 @@
 #define Defaults [NSUserDefaults standardUserDefaults]
 
 // Keys
+static NSString *const L_FIRST_TIME_USE_KEY = @"L_FIRST_TIME_USE";
 static NSString *const L_PIN_ENABLED_KEY = @"L_PIN_ENABLED";
 static NSString *const L_PIN_KEY = @"L_PIN_KEY";
 static NSString *const L_TOUCH_ID_ENABLED_KEY = @"L_TOUCH_ID_ENABLED";
@@ -23,6 +24,7 @@ static NSString *touchIDReason = @"Touch to get access";
 - (void)setup {
     
     NSDictionary *defaultPreferences = @{
+                                         L_FIRST_TIME_USE_KEY: @(YES),
                                          L_PIN_ENABLED_KEY: @(NO),
                                          L_PIN_KEY: @(-1),
                                          L_TOUCH_ID_ENABLED_KEY: @(NO)
@@ -33,6 +35,17 @@ static NSString *touchIDReason = @"Touch to get access";
 
 - (void)save {
     [Defaults synchronize];
+}
+
+#pragma mark - First Time Use
+
+- (void)setFirstTimeUse:(BOOL)firstTimeUse {
+    [Defaults setBool:firstTimeUse forKey:L_FIRST_TIME_USE_KEY];
+    [self save];
+}
+
+- (BOOL)firstTimeUse {
+    return [Defaults boolForKey:L_FIRST_TIME_USE_KEY];
 }
 
 #pragma mark - PIN

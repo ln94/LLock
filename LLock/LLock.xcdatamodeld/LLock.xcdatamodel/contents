@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="LFolder" representedClassName="LFolder" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LPhotoData" inverseName="folder" inverseEntity="LPhotoData" syncable="YES"/>
     </entity>
@@ -16,7 +17,7 @@
         <attribute name="thumbnail" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LFolder" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="LFolder" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="LPhotoData" positionX="-54" positionY="0" width="128" height="105"/>
         <element name="LPhotoImage" positionX="-63" positionY="27" width="128" height="90"/>
     </elements>

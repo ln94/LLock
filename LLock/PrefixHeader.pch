@@ -12,6 +12,7 @@
 #define C_MAIN C_GRAY(0.93)
 #define C_SECONDARY C_LIGHT_GRAY
 
+#import "AppDelegate.h"
 #import <RoamToolkit/RoamToolkit.h>
 #import "LFolder+CoreDataClass.h"
 #import "LPhotoData+CoreDataClass.h"

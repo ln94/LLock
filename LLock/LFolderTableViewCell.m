@@ -85,14 +85,11 @@ static const CGFloat kDeleteButtonWidth = 110;
 
 #pragma mark - Setters
 
-- (void)setFolderName:(NSString *)folderName {
-    _folderName = folderName;
-    self.folderNameLabel.text = folderName;
-}
-
-- (void)setPhotoCount:(NSInteger)photoCount {
-    _photoCount = photoCount;
-    self.photoCountLabel.text = string(@"%ld", photoCount);
+- (void)setFolder:(LFolder *)folder {
+    _folder = folder;
+    
+    self.folderNameLabel.text = folder.name;
+    self.photoCountLabel.text = string(@"%i", (int)folder.photos.count);
 }
 
 - (void)setShowDeleteButton:(BOOL)showDeleteButton {

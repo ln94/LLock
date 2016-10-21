@@ -86,14 +86,39 @@ static const NSInteger pinLength = 4;
     self.errorLabel.hidden = YES;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    
-//    LOG(@"viewWillAppear");
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.type != LPinViewControllerTypeEnter) {
+        [self.textField becomeFirstResponder];
+    }
+}
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)didPressCloseButton {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)dismissForCorrectlyEnteredPin {
+    [UIView transitionFromView:self.view toView:self.presentingViewController.view duration:0.4 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
+#pragma mark - Pin entry
+
+- (void)askForPin {
+    [self.textField becomeFirstResponder];
+}
+
+- (void)hideAskingForPin {
+    [self.textField resignFirstResponder];
 }
 
 - (void)askForTouchID {
@@ -103,13 +128,13 @@ static const NSInteger pinLength = 4;
         [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
             run_main(^{
                 if (success) {
-                    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-                }
-                else {
-                    [self.textField becomeFirstResponder];
+                    [self dismissForCorrectlyEnteredPin];
                 }
             });
         }];
+    }
+    else {
+        [self askForPin];
     }
 }
 
@@ -248,9 +273,10 @@ static const NSInteger pinLength = 4;
             // Check if old pin was entered correctly
             if (pin == SettingsManager.pin) {
                 
-                // Disable pin
+                // Disable pin and Touch ID
                 SettingsManager.pinEnabled = NO;
                 SettingsManager.pin = -1;
+                SettingsManager.touchIDEnabled = NO;
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
             else {
@@ -266,7 +292,7 @@ static const NSInteger pinLength = 4;
             if (pin == SettingsManager.pin) {
                 
                 // Grant access
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissForCorrectlyEnteredPin];
             }
             else {
                 // Show error

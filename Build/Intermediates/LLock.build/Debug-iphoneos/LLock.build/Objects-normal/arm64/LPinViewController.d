@@ -1,6 +1,7 @@
 dependencies: \
   /Users/lanadeveloper/Playground/LLock/LLock/LPinViewController.m \
   /Users/lanadeveloper/Playground/LLock/LLock/PrefixHeader.pch \
+  /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.h \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Modules/module.modulemap \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Headers/NSString+Validation.h \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Headers/RoamValidation.h \

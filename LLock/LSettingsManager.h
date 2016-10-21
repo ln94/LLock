@@ -12,6 +12,8 @@
 
 @interface LSettingsManager : NSObject <Singleton>
 
+@property (nonatomic) BOOL firstTimeUse;
+
 @property (nonatomic) BOOL pinEnabled;
 @property (nonatomic) NSInteger pin;
 

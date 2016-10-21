@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) LFolderTableViewCell *cellWithDeleteButtonShown;
 
-@property (nonatomic, strong) UIView *blackView;
-
 @end
 
 @implementation LFolderTableViewController
@@ -61,7 +59,9 @@
         [self resetAddFolderAlertController];
     }]];
     UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self addFolder];
+        // Save folder
+        [PhotoManager createFolderWithName:self.addFolderAlertController.textFields[0].text];
+        [self resetAddFolderAlertController];
     }];
     saveAction.enabled = NO;
     [self.addFolderAlertController addAction:saveAction];
@@ -89,14 +89,10 @@
     
     // Frc
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntity:[LFolder class]];
-    request.sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    request.sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:NO];
     self.folders = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:DataContext sectionNameKeyPath:nil cacheName:nil];
     [self.folders performFetch];
     self.folders.delegate = self;
-    
-    // Black view to hide
-    self.blackView = [[UIView alloc] initFullInSuperview:self.view];
-    self.blackView.backgroundColor = C_BLACK;
 }
 
 
@@ -115,26 +111,6 @@
     }
 }
 
-- (void)addFolder {
-    
-    NSString *folderName = self.addFolderAlertController.textFields[0].text;
-    
-    if (![LFolder firstWithKey:@"name" value:folderName]) {
-        
-        // Save the folder
-        LFolder *newFolder = [LFolder createInContext:DataContext];
-        newFolder.name = folderName;
-        [DataStore save];
-        
-        [self resetAddFolderAlertController];
-    }
-    else {
-        self.addFolderAlertController.message = @"Folder with this name already exists! Enter another name.";
-        self.addFolderAlertController.actions[1].enabled = NO;
-        [self presentViewController:self.addFolderAlertController animated:YES completion:nil];
-    }
-}
-
 - (void)resetAddFolderAlertController {
     
     self.addFolderAlertController.message = @"Enter a name for this folder.";
@@ -144,9 +120,8 @@
 
 - (void)deleteFolder {
     
-    LFolder *folder = [LFolder firstWithKey:@"name" value:self.cellWithDeleteButtonShown.folderName];
+    [self.cellWithDeleteButtonShown.folder destroy];
     [self hideDeleteFolderButton];
-    [folder destroy];
     [DataStore save];
 }
 
@@ -168,11 +143,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     LFolderTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[LFolderTableViewCell reuseIdentifier]];
+    cell.folder = [self.folders objectAtIndexPath:indexPath];
     cell.delegate = self;
-    
-    LFolder *folder = [self.folders objectAtIndexPath:indexPath];
-    cell.folderName = folder.name;
-    cell.photoCount = folder.photos.count;
     
     return cell;
 }

@@ -12,6 +12,8 @@
 
 @interface LPhotoManager : NSObject <Singleton>
 
+- (void)createFolderWithName:(NSString *)name;
+
 - (void)savePhoto:(NSDictionary *)info inFolder:(LFolder *)folder;
 
 @end

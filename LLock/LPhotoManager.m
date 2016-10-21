@@ -15,6 +15,18 @@
 
 @implementation LPhotoManager
 
+#pragma mark - Folder
+
+- (void)createFolderWithName:(NSString *)name {
+    
+    // Save the folder
+    LFolder *newFolder = [LFolder createInContext:DataContext];
+    newFolder.name = name;
+    NSInteger newIndex = [((LFolder *)[[LFolder allOrderedBy:@"index" ascending:YES] lastObject]).index integerValue] + 1;
+    newFolder.index = [NSNumber numberWithInteger:newIndex];
+    [DataStore save];
+}
+
 - (void)savePhoto:(NSDictionary *)info inFolder:(LFolder *)folder {
     
     // Save photo image

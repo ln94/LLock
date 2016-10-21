@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "LFolderTableViewController.h"
 
 #define LLock ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
@@ -16,12 +15,13 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) LFolderTableViewController *mainViewController;
-
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
+
+@property (nonatomic) BOOL isTouchIDAsked;
 
 - (void)saveContext;
 
+- (UIViewController *)topViewController;
 
 @end
 

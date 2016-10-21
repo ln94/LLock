@@ -7,9 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "LFolderTableViewController.h"
 #import "LPinViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) UIVisualEffectView *blurEffectView;
 
 @end
 
@@ -19,21 +22,170 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.mainViewController = [[LFolderTableViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+    self.window.backgroundColor = C_BLACK;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LFolderTableViewController alloc] init]];
     [self.window makeKeyAndVisible];
+    
+    // Blurer
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    self.blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    self.blurEffectView.frame = self.window.bounds;
+    self.blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addBlurredView];
+    
+    // First time use: create sample folder
+    if (SettingsManager.firstTimeUse) {
+        [PhotoManager createFolderWithName:@"My Folder"];
+        SettingsManager.firstTimeUse = NO;
+    }
+    
+    // Pin and Touch ID
+    self.isTouchIDAsked = NO;
+    [self checkPin];
     
     return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    if (SettingsManager.pinEnabled && ![self.mainViewController.presentedViewController isKindOfClass:[LPinViewController class]]) {
-        LPinViewController *pinVC = [[LPinViewController alloc] initWithType:LPinViewControllerTypeEnter];
-        [self.mainViewController presentViewController:pinVC animated:NO completion:^{
-            [pinVC askForTouchID];
+
+    LOG(@"Did become active");
+    if (!self.isTouchIDAsked) {
+        self.isTouchIDAsked = NO;
+    }
+    if (SettingsManager.pinEnabled) {
+        // Show Pin screen
+        UIViewController *topVC = [self topViewController];
+        
+        if (![topVC isKindOfClass:[LPinViewController class]]) {
+            
+            if (!self.isTouchIDAsked) {
+                LOG(@"1");
+                // Open pin screen
+                if ([topVC isKindOfClass:[UINavigationController class]]) {
+                    topVC = [((UINavigationController *)topVC).childViewControllers firstObject];
+                }
+                LPinViewController *pinVC = [[LPinViewController alloc] initWithType:LPinViewControllerTypeEnter];
+                [topVC presentViewController:pinVC animated:NO completion:^{
+                    self.isTouchIDAsked = YES;
+                    [pinVC askForTouchID];
+                }];
+            }
+            else {
+                // Successfully unlocked with Touch ID
+                self.isTouchIDAsked = NO;
+            }
+        }
+        else {
+            if (!self.isTouchIDAsked){
+                LOG(@"2");
+                // Pin screen is open, but Touch ID is not asked for: ask for Touch ID
+                self.isTouchIDAsked = YES;
+                [(LPinViewController *)topVC askForTouchID];
+            }
+            else {
+                LOG(@"3");
+                // Case when Touch ID asking alert was cancelled: ask for pin
+                self.isTouchIDAsked = NO;
+                [(LPinViewController *)topVC askForPin];
+            }
+        }
+    }
+
+    [self removeBlurredView];
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    LOG(@"WILL resign active");
+    if (!self.isTouchIDAsked) {
+        // App is just resigning active, not asking for Touch ID
+        
+        UIViewController *topVC = [self topViewController];
+        
+        if ([topVC isKindOfClass:[LPinViewController class]]) {
+            // If pin screen is presented, hide the keyboard
+            [(LPinViewController *)[self topViewController] hideAskingForPin];
+        }
+        else if ([topVC isKindOfClass:[UIAlertController class]]) {
+            [topVC.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+        }
+        
+        [self addBlurredView];
+    }
+}
+
+-(void)applicationDidEnterBackground:(UIApplication *)application {
+    LOG(@"Did Enter Background");
+    UIViewController *topVC = [self topViewController];
+    if ([topVC isKindOfClass:[LPinViewController class]]) {
+        [(LPinViewController *)topVC hideAskingForPin];
+        self.isTouchIDAsked = NO;
+    }
+    
+    [self addBlurredView];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    LOG(@"Will Enter Foregrond");
+}
+
+- (UIViewController *)topViewController {
+    // Find the top view controller
+    UIViewController *topVC = self.window.rootViewController;
+    while (topVC.presentedViewController) {
+        topVC = topVC.presentedViewController;
+    }
+    
+    if ([topVC isKindOfClass:[UINavigationController class]]) {
+        topVC = [topVC.childViewControllers lastObject];
+    }
+    
+    return topVC;
+
+}
+
+#pragma mark - Blurer
+
+- (void)addBlurredView {
+    [self.window addSubview:self.blurEffectView];
+}
+
+- (void)removeBlurredView {
+    [self.blurEffectView removeFromSuperview];
+}
+
+#pragma mark - Pin / Touch ID
+
+- (void)checkPin {
+    
+    if (SettingsManager.pinEnabled) {
+        // Open Pin screen
+        
+        UIViewController *topVC = [self topViewController];
+        if ([topVC isKindOfClass:[UINavigationController class]]) {
+            
+            LPinViewController *pinVC = [[LPinViewController alloc] initWithType:LPinViewControllerTypeEnter];
+            [topVC presentViewController:pinVC animated:NO completion:^{
+//                [self checkTouchID];
+            }];
+
+        }
+    }
+}
+
+- (void)checkTouchID {
+    
+    if (SettingsManager.touchIDEnabled && SettingsManager.touchIDAvailable) {
+        // Open Touch ID alert
+        
+        [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
+            run_main(^{
+                if (success) {
+                    [(LPinViewController *)[self topViewController] dismissForCorrectlyEnteredPin];
+                }
+            });
         }];
     }
+
 }
 
 #pragma mark - Core Data stack
