@@ -19,5 +19,6 @@
 #import "LPhotoImage+CoreDataClass.h"
 #import "LPhotoManager.h"
 #import "LSettingsManager.h"
+#import "LPinEntryManager.h"
 
 #endif /* PrefixHeader_pch */

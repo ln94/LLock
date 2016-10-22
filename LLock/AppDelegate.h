@@ -15,13 +15,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (UIViewController *)topViewController;
+
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
-@property (nonatomic) BOOL isTouchIDAsked;
-
 - (void)saveContext;
-
-- (UIViewController *)topViewController;
 
 @end
 

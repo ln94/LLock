@@ -30,6 +30,7 @@
 		87A1A75E1DA1FE060080BADE /* LPhotoGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1A75D1DA1FE060080BADE /* LPhotoGridViewController.m */; };
 		87CCA9B81DAF3133000A1A01 /* LPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */; };
 		87CCA9BB1DAF327E000A1A01 /* LPhotoDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */; };
+		87E1AF6D1DBADDD20088FE25 /* LPinEntryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E1AF6C1DBADDD20088FE25 /* LPinEntryManager.m */; };
 		87F3F5351DB6DD6A00A7A64A /* LSettingsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F5341DB6DD6A00A7A64A /* LSettingsViewCell.m */; };
 		87F3F5381DB6F39200A7A64A /* LSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F5371DB6F39200A7A64A /* LSettingsManager.m */; };
 		87F3F53B1DB7155700A7A64A /* LPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F3F53A1DB7155700A7A64A /* LPinViewController.m */; };
@@ -78,6 +79,8 @@
 		87CCA9B71DAF3133000A1A01 /* LPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewController.m; sourceTree = "<group>"; };
 		87CCA9B91DAF327E000A1A01 /* LPhotoDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPhotoDetailViewCell.h; sourceTree = "<group>"; };
 		87CCA9BA1DAF327E000A1A01 /* LPhotoDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPhotoDetailViewCell.m; sourceTree = "<group>"; };
+		87E1AF6B1DBADDD20088FE25 /* LPinEntryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPinEntryManager.h; sourceTree = "<group>"; };
+		87E1AF6C1DBADDD20088FE25 /* LPinEntryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPinEntryManager.m; sourceTree = "<group>"; };
 		87F3F5331DB6DD6A00A7A64A /* LSettingsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsViewCell.h; sourceTree = "<group>"; };
 		87F3F5341DB6DD6A00A7A64A /* LSettingsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSettingsViewCell.m; sourceTree = "<group>"; };
 		87F3F5361DB6F39200A7A64A /* LSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSettingsManager.h; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				870D66B91DAC95DF0072A8C0 /* LPhotoManager.m */,
 				87F3F5361DB6F39200A7A64A /* LSettingsManager.h */,
 				87F3F5371DB6F39200A7A64A /* LSettingsManager.m */,
+				87E1AF6B1DBADDD20088FE25 /* LPinEntryManager.h */,
+				87E1AF6C1DBADDD20088FE25 /* LPinEntryManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				87A1A7361DA0D08A0080BADE /* AppDelegate.m in Sources */,
 				87A1A75B1DA1F5460080BADE /* LFolderTableViewCell.m in Sources */,
 				870D66BA1DAC95DF0072A8C0 /* LPhotoManager.m in Sources */,
+				87E1AF6D1DBADDD20088FE25 /* LPinEntryManager.m in Sources */,
 				87A1A7331DA0D08A0080BADE /* main.m in Sources */,
 				87A1A73F1DA0D08A0080BADE /* LLock.xcdatamodeld in Sources */,
 				87F3F53F1DB71BE700A7A64A /* LPinDotView.m in Sources */,

@@ -54,7 +54,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.tableView reloadData];
+    if (PinEntryManager.alertControllerToReopen != self.pinChangeActionSheet) {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)didPressCloseButton {

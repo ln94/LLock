@@ -67,7 +67,7 @@
     [self.addFolderAlertController addAction:saveAction];
     
     // Delete folder alert controller
-    self.deleteFolderAlertController = [UIAlertController alertControllerWithTitle:@"Delete Folder" message:@"Are you sure you want to delete this folder and all the photos in it?" preferredStyle:UIAlertControllerStyleAlert];
+    self.deleteFolderAlertController = [UIAlertController alertControllerWithTitle:@"Delete Folder" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [self.deleteFolderAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         // Hide delete button
@@ -94,7 +94,6 @@
     [self.folders performFetch];
     self.folders.delegate = self;
 }
-
 
 #pragma mark - Add/Delete Folder
 
@@ -193,6 +192,7 @@
 
 - (void)LFolderTableViewCell:(LFolderTableViewCell *)cell didPressDeleteButton:(UIButton *)button {
     // Show delete folder alert controller
+    self.deleteFolderAlertController.message = string(@"Are you sure you want to delete folder '%@' and all the photos in it?", cell.folder.name);
     [self presentViewController:self.deleteFolderAlertController animated:YES completion:nil];
 }
 

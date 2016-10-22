@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/lanadeveloper/Playground/LLock/LLock/Model/LFolder+CoreDataProperties.m \
+  /Users/lanadeveloper/Playground/LLock/LLock/LPinEntryManager.m \
   /Users/lanadeveloper/Playground/LLock/LLock/PrefixHeader.pch \
   /Users/lanadeveloper/Playground/LLock/LLock/AppDelegate.h \
   /Users/lanadeveloper/Playground/LLock/RoamToolkit.framework/Modules/module.modulemap \
@@ -56,4 +56,5 @@ dependencies: \
   /Users/lanadeveloper/Playground/LLock/LLock/Model/LPhotoImage+CoreDataProperties.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LPhotoManager.h \
   /Users/lanadeveloper/Playground/LLock/LLock/LSettingsManager.h \
-  /Users/lanadeveloper/Playground/LLock/LLock/LPinEntryManager.h
+  /Users/lanadeveloper/Playground/LLock/LLock/LPinEntryManager.h \
+  /Users/lanadeveloper/Playground/LLock/LLock/LPinViewController.h

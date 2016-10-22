@@ -89,12 +89,14 @@ static const NSInteger pinLength = 4;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.type != LPinViewControllerTypeEnter) {
-        [self.textField becomeFirstResponder];
+    if ([self isEnterType] && [PinEntryManager willDisplayTouchIDAlert]) {
+        // If Pin entry screen is presented and Touch ID alert will also be displayed, hide keyboard
+        [self hideKeyboard];
     }
-}
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+    else {
+        // Open keyboard for every other type of Pin screen
+        [self showKeyboard];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -105,42 +107,23 @@ static const NSInteger pinLength = 4;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dismissForCorrectlyEnteredPin {
-    [UIView transitionFromView:self.view toView:self.presentingViewController.view duration:0.4 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-}
+#pragma mark - Keyboard
 
-#pragma mark - Pin entry
-
-- (void)askForPin {
+- (void)showKeyboard {
     [self.textField becomeFirstResponder];
 }
 
-- (void)hideAskingForPin {
+- (void)hideKeyboard {
     [self.textField resignFirstResponder];
 }
 
-- (void)askForTouchID {
-    
-    if (SettingsManager.touchIDEnabled && SettingsManager.touchIDAvailable) {
-        
-        [SettingsManager askForTouchID:^(BOOL success, NSError *error) {
-            run_main(^{
-                if (success) {
-                    [self dismissForCorrectlyEnteredPin];
-                }
-            });
-        }];
-    }
-    else {
-        [self askForPin];
-    }
+#pragma mark - Type
+
+- (BOOL)isEnterType {
+    return self.type == LPinViewControllerTypeEnter;
 }
 
-#pragma mark - Setters
-
--(void)setType:(LPinViewControllerType)type {
+- (void)setType:(LPinViewControllerType)type {
     
     // Process error if it happened
     [self processErrorForNewType:type fromOldType:self.type];
@@ -154,6 +137,9 @@ static const NSInteger pinLength = 4;
         dot.entered = NO;
     }
 }
+
+#pragma mark - Text for labels
+
 - (NSString *)titleLabelText {
     
     switch (self.type) {
@@ -196,11 +182,13 @@ static const NSInteger pinLength = 4;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
+    __block NSString *pinString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
     int oldCount = (int)textField.text.length;
     int newCount = (int)[textField.text stringByReplacingCharactersInRange:range withString:string].length;
     
-    if (newCount > pinLength) {
-        // Too many digits, some error
+    if (textField.text.length == pinLength) {
+        // If all the pin digits are already entered, do nothing
         return NO;
     }
     
@@ -210,9 +198,8 @@ static const NSInteger pinLength = 4;
         
         if (newCount == pinLength) {
             run_delayed(0.1f, ^{
-                [self pinEntered:[[textField.text stringByReplacingCharactersInRange:range withString:string] integerValue]];
+                [self pinEntered:[pinString integerValue]];
             });
-            return NO;
         }
     }
     else {
@@ -292,7 +279,7 @@ static const NSInteger pinLength = 4;
             if (pin == SettingsManager.pin) {
                 
                 // Grant access
-                [self dismissForCorrectlyEnteredPin];
+                [PinEntryManager handleSuccessfulPinEntry];
             }
             else {
                 // Show error

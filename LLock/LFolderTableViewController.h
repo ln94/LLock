@@ -10,6 +10,7 @@
 
 @interface LFolderTableViewController : UITableViewController
 
+@property (nonatomic, strong) UIAlertController *alertViewToShow;
 
 @end
 
